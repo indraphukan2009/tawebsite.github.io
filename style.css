@@ -13,3 +13,10 @@ h1 {
 p {
   text-align: center;
 }
+
+img {
+  display: block;   
+  margin: 0 auto;
+  width: 300px;   
+  height: auto;   
+}
