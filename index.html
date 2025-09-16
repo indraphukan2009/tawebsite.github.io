@@ -10,9 +10,45 @@
    <p>Log in before you can submit a TA form or request a reccomendation</p>
   <img src="cvfalcon.jpg" alt="CV Falcon">
 
+
   <button id="studentBtn">Student Log in</button>
   <button id="teacherBtn">Teacher Log in</button>
 
+
+  <div class="createAccount" style="max-width: 400px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <h2>Create an Account!</h2>
+    <form id="accountForm">
+      <label>Are you a teacher or a student?</label><br>
+      <input type="radio" id="studentRadio" name="role" value="student" checked>
+      <label for="studentRadio">Student</label>
+      <input type="radio" id="teacherRadio" name="role" value="teacher">
+      <label for="teacherRadio">Teacher</label><br><br>
+
+      <div id="teacherAccess" style="display:none;">
+        <label for="accessCode">Enter access code:</label><br>
+        <input type="text" id="accessCode" name="accessCode"><br><br>
+      </div>
+
+      <div id="studentFields">
+        <label for="fname">First name:</label><br>
+        <input type="text" id="fname" name="fname" ><br>
+
+        <label for="lname">Last name:</label><br>
+        <input type="text" id="lname" name="lname" ><br><br>
+
+        <label for="email">Email(Do NOT use your student email):</label><br>
+        <input type="text" id="email" name="email" ><br><br>
+
+        <label for="sid">Student ID(6-digit):</label><br>
+        <input type="text" id="sid" name="sid" ><br><br>
+
+        <label for="clsof">Class of: (Graduating Year):</label><br>
+        <input type="text" id="clsof" name="clsof" ><br><br>
+      </div>
+
+      <input type="submit" value="Submit">
+    </form>
+  </div>
 
    <script src="main.js"></script>
 </body>

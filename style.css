@@ -4,6 +4,7 @@ body {
   font-family: Georgia, serif;
   background-color: #ADD8E6;
   color: #0B0B45;
+  text-align: center;
 }
 
 h1 {
@@ -18,6 +19,75 @@ img {
   display: block;   
   margin-left: auto;
   margin-right: auto;
-  width: 600px;   
+  width: 400px;   
   height: auto;   
+}
+
+button {
+  padding: 15px 35px;  
+  display: block;               /* makes auto margins work */
+  margin: 20px auto; 
+  background-color: #000080;
+  color: white;
+  font-size: 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+button:hover {
+  background-color: #000052;
+  transform: scale(1.05);
+}
+
+.createAccount {
+  font-size: 90px;
+}
+
+label {
+  display: block;        /* stays above input */
+  font-weight: bold;
+  margin-bottom: 6px;    /* space under label */
+  margin-right: 400px;   
+  color: #0B0B45;
+  font-size: 20px;
+}
+
+/* Style all text inputs */
+input[type="text"] {
+  width: 100%;           /* full width inside container */
+  max-width: 600px;      /* don’t let them get too wide */
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+/* Highlight when user clicks inside */
+input[type="text"]:focus {
+  border-color: #000080;
+}
+
+/* Style submit button */
+input[type="submit"] {
+  background-color: #000080;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect for button */
+input[type="submit"]:hover {
+  background-color: #000052;
+  transform: scale(1.05);
 }
