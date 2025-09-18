@@ -45,7 +45,29 @@ if (homeButton) {
 const opButton = document.getElementById("teachBtn");
 if (opButton) {
   opButton.addEventListener("click", () => {
-    window.location.href = "studentMain.html";
+    window.location.href = "stuDashboard.html";
   });
 }
+
+const recButton = document.getElementById("recBtn");
+if (recButton) {
+  recButton.addEventListener("click", () => {
+    window.location.href = "requestRec.html";
+  });
+}
+
+const formBtn = document.getElementById("formBtn");
+if (formBtn) {
+  formBtn.addEventListener("click", () => {
+    window.location.href = "requestRec.html";
+  });
+}
+
+const seeReq = document.getElementById("seeReq");
+if (seeReq) {
+  seeReq.addEventListener("click", () => {
+    window.location.href = "tDashboard.html";
+  });
+}
+
 
