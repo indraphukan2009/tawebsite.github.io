@@ -31,7 +31,7 @@ if (studentButton) {
 const teacherButton = document.getElementById("teacherBtn");
 if (teacherButton) {
   teacherButton.addEventListener("click", () => {
-    window.location.href = "teacherLogin.html";
+    window.location.href = "teacherLogin2.html";
   });
 }
 
@@ -59,14 +59,15 @@ if (recButton) {
 const formBtn = document.getElementById("formBtn");
 if (formBtn) {
   formBtn.addEventListener("click", () => {
-    window.location.href = "requestRec.html";
+    window.location.href = "submitForm.html";
   });
 }
 
-const seeReq = document.getElementById("seeReq");
-if (seeReq) {
-  seeReq.addEventListener("click", () => {
-    window.location.href = "tDashboard.html";
+
+const pee = document.getElementById("test2");
+if (pee) {
+  pee.addEventListener("click", () => {
+    window.location.href = "tDash.html";
   });
 }
 
