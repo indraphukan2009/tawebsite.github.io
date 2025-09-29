@@ -1,12 +1,13 @@
 /* Style login buttons row */
 
 
+
 .login-btn-row {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px;
-  margin: 32px 0 10px 0;
+  gap: 0px; /* right next to each other */
+  margin: 64px 0 0 0;
 }
 
 
@@ -77,7 +78,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Consolas, "Courier New", Courier, monospace;
   background-color: #E5F3FD;
   color: #0B0B45;
   text-align: center;
@@ -85,6 +86,7 @@ body {
 
 h1 {
   text-align: center;
+  font-size: 70px;
 }
 
 p {
@@ -100,7 +102,9 @@ img {
 }
 
 button {
-  padding: 15px 35px;  
+  width: auto;
+  height: auto;
+  padding: 17px 80px;
   display: block;               /* makes auto margins work */
   margin: 20px auto; 
   background-color: rgba(155, 196, 226, 0.5);
@@ -110,6 +114,7 @@ button {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: Consolas, "Courier New", Courier, monospace;
 
 }
 
@@ -119,15 +124,43 @@ button:hover {
 }
 
 
+
+
+.clipboard-form-container {
+  position: relative;
+  max-width: 1400px;
+  margin: 10px auto 0 auto;
+  min-height: 1500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.clipboard-form-container::before {
+  content: "";
+  position: absolute;
+  top: 30px; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('clipboard.png') no-repeat center center;
+  background-size: 100% 100%;
+  z-index: 0;
+  opacity: 1;
+}
+
 .createAccount {
-  max-width: 1000px;
-  margin: 40px auto;
-  background: #fff;
-  padding: 40px 50px 30px 50px;
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 60px 40px 40px 40px;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
-
+  box-shadow: none;
 }
 
 label {
@@ -139,7 +172,7 @@ label {
   text-align: left;
 }
 
-/* Style all input boxes the same */
+
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -160,35 +193,48 @@ input[type="email"]:focus,
 input[type="password"]:focus {
   border-color: #000080;
 }
-/* Highlight when user clicks inside */
+
 input[type="text"]:focus {
   border-color: #000080;
 }
 
-/* Style submit button */
+
 input[type="submit"] {
-  background-color: #000080;
-  color: white;
+  width: auto;
+  height: auto;
+  padding: 20px 40px;
+  display: block;               
+  margin: auto; 
+  margin-bottom: 10px;
+  background-color: rgba(155, 196, 226, 0.5);
+  color: #000052;
+  font-size: 20px;
   border: none;
-  padding: 12px 24px;
-  font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
-  margin-top: 16px;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: Consolas, "Courier New", Courier, monospace;
 }
 
-/* Hover effect for button */
+
 input[type="submit"]:hover {
-  background-color: #000052;
   transform: scale(1.05);
 }
 
-#Spassword {
-  color: blue; /* text inside the box will be blue */
+input::placeholder {
+  color: #888;          
+  opacity: 1;
+  font-family: Consolas, "Courier New", Courier, monospace;          
+}
+#teacherBtn, #studentBtn {
+  width: auto;
+  height: auto;
+  font-size: 20px;
+  display: inline-block; 
+  margin: 10px; 
 }
 
-#Spassword::placeholder {
-  color: blue;
-  font-style: italic;
+#recBtn {
+  
 }
+

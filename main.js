@@ -8,24 +8,16 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         const accessCode = document.getElementById('accod')?.value;
         const password = document.getElementById('Password')?.value;
-        const username = document.getElementById('accod')?.value; // Use access code as username for now
+        const username = document.getElementById('Tusername')?.value;
         if (accessCode !== '245867') {
           alert('Invalid access code.');
           return;
         }
-        // Find teacher with this password
         let teachers = JSON.parse(localStorage.getItem('teachers') || '{}');
-        let found = false;
-        for (let key in teachers) {
-          if (teachers[key] === password) {
-            found = true;
-            break;
-          }
-        }
-        if (found) {
+        if (teachers[username] && teachers[username] === password) {
           window.location.href = 'tDash.html';
         } else {
-          alert('Invalid teacher password.');
+          alert('Invalid teacher username or password.');
         }
       });
     }
@@ -141,6 +133,20 @@ if (opButton) {
   });
 }
 
+const poobtn = document.getElementById("test2");
+if (poobtn) {
+  poobtn.addEventListener("click", () => {
+    window.location.href = "stuDashboard.html";
+  });
+}
+
+const pooBtn = document.getElementById("test2");
+if (pooBtn) {
+  pooBtn.addEventListener("click", () => {
+    window.location.href = "tDash.html";
+  });
+}
+
 const recButton = document.getElementById("recBtn");
 if (recButton) {
   recButton.addEventListener("click", () => {
@@ -155,11 +161,10 @@ if (formBtn) {
   });
 }
 
-
-const pee = document.getElementById("test2");
-if (pee) {
-  pee.addEventListener("click", () => {
-    window.location.href = "tDash.html";
+const back = document.getElementById("dash");
+if (back) {
+  back.addEventListener("click", () => {
+    window.location.href = "stuDashboard.html";
   });
 }
 

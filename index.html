@@ -7,7 +7,7 @@
 <body>
   <h1>TA Website</h1>
   <p>Welcome to Crescenta Valley Highschool's TA website!!!</p>
-   <p>Log in before you can submit a TA form or request a reccomendation</p>
+  <p>Log in before you can submit a TA form or request a reccomendation</p>
   <img src="cvfalcon.jpg" alt="CV Falcon">
 
 
@@ -19,49 +19,40 @@
   </div>
 
 
-  <div class="createAccount" style="max-width: 1000px; margin: 0 auto; background: #E5F3FD; padding: 30px; border-radius: 12px;">
-  <h2 style="font-size: 2em;">Create an Account!</h2>
-            <form id="accountForm" autocomplete="off">
-  <div class="role-select-row">
-    <span class="role-label">Are you a teacher or a student?</span>
-    <label class="role-radio">
-      <input type="radio" id="studentRadio" name="role" value="student" checked>
-      <span>Student</span>
-    </label>
-    <label class="role-radio">
-      <input type="radio" id="teacherRadio" name="role" value="teacher">
-      <span>Teacher</span>
-    </label>
-  </div>
-  <br>
 
-      <div id="teacherAccess" style="display:none;">
-  <input type="text" id="accessCode" name="accessCode" autocomplete="off" placeholder="Access code"><br><br>
-
-  <input type="text" id="TLastName" name="TLastName" autocomplete="off" placeholder="Last name"><br><br>
-
-  <input type="email" id="Tusername" name="Tusername" autocomplete="off" placeholder="GUSD Email"><br><br>
-
-  <input type="password" id="Tpassword" name="Tpassword" autocomplete="off" placeholder="Password"><br><br>
-      </div>
-
-      <div id="studentFields">
-  <input type="text" id="fname" name="fname" autocomplete="off" placeholder="First name"><br>
-
-  <input type="text" id="lname" name="lname" autocomplete="off" placeholder="Last name"><br><br>
-
-  <input type="password" id="Spassword" name="Spassword" autocomplete="off" placeholder="Password"><br><br>
-  
-
-  <input type="email" id="email" name="email" autocomplete="off" placeholder="Student email"><br><br>
-
-  <input type="text" id="sid" name="sid" autocomplete="off" placeholder="Student ID (6-digit)"><br><br>
-
-  <input type="text" id="clsof" name="clsof" autocomplete="off" placeholder="Class of (Graduating Year)"><br><br>
-      </div>
-
-      <input type="submit" value="Submit">
-    </form>
+  <div class="clipboard-form-container">
+    <div class="createAccount">
+      <h2 style="font-size: 2em;">Create an Account!</h2>
+      <form id="accountForm" autocomplete="off">
+        <div class="role-select-row">
+          <span class="role-label">Are you a teacher or a student?</span>
+          <label class="role-radio">
+            <input type="radio" id="studentRadio" name="role" value="student" checked>
+            <span>Student</span>
+          </label>
+          <label class="role-radio">
+            <input type="radio" id="teacherRadio" name="role" value="teacher">
+            <span>Teacher</span>
+          </label>
+        </div>
+        <br>
+        <div id="teacherAccess" style="display:none;">
+          <input type="text" id="accessCode" name="accessCode" autocomplete="off" placeholder="Access code"><br><br>
+          <input type="text" id="TLastName" name="TLastName" autocomplete="off" placeholder="Last name"><br><br>
+          <input type="email" id="Tusername" name="Tusername" autocomplete="off" placeholder="GUSD Email"><br><br>
+          <input type="password" id="Tpassword" name="Tpassword" autocomplete="off" placeholder="Password"><br><br>
+        </div>
+        <div id="studentFields">
+          <input type="text" id="fname" name="fname" autocomplete="off" placeholder="First name"><br>
+          <input type="text" id="lname" name="lname" autocomplete="off" placeholder="Last name"><br><br>
+          <input type="password" id="Spassword" name="Spassword" autocomplete="off" placeholder="Password"><br><br>
+          <input type="email" id="email" name="email" autocomplete="off" placeholder="Student email"><br><br>
+          <input type="text" id="sid" name="sid" autocomplete="off" placeholder="Student ID (6-digit)"><br><br>
+          <input type="text" id="clsof" name="clsof" autocomplete="off" placeholder="Class of (Graduating Year)"><br><br>
+        </div>
+        <input type="submit" value="Create">
+      </form>
+    </div>
   </div>
 
    <script src="main.js"></script>
