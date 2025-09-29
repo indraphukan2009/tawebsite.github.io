@@ -1,6 +1,14 @@
-// --- Account Creation Logic ---
+if (window.location.pathname.endsWith('teacherLogin2.html')) {
+  const pooBtn = document.getElementById('test2');
+  if (pooBtn) {
+    pooBtn.addEventListener('click', function() {
+      window.location.href = 'tDash.html';
+    });
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-  // --- Teacher Login Logic ---
+
   if (window.location.pathname.endsWith('teacherLogin2.html')) {
     const submitBtn = document.querySelector('input[type="submit"]');
     if (submitBtn) {
@@ -9,16 +17,27 @@ document.addEventListener('DOMContentLoaded', function() {
         const accessCode = document.getElementById('accod')?.value;
         const password = document.getElementById('Password')?.value;
         const username = document.getElementById('Tusername')?.value;
-        if (accessCode !== '245867') {
-          alert('Invalid access code.');
-          return;
-        }
         let teachers = JSON.parse(localStorage.getItem('teachers') || '{}');
-        if (teachers[username] && teachers[username] === password) {
-          window.location.href = 'tDash.html';
-        } else {
-          alert('Invalid teacher username or password.');
+        let errors = [];
+        if (!username) errors.push('Username (GUSD Email) is required.');
+        if (!password) errors.push('Password is required.');
+        if (!accessCode) errors.push('Access code is required.');
+        if (accessCode && accessCode !== '245867') errors.push('Access code is invalid.');
+        if (username && password && accessCode === '245867' && !(teachers[username] && teachers[username] === password)) {
+          errors.push('Username or password is incorrect.');
         }
+        if (errors.length > 0) {
+          alert(errors.join('\n'));
+        } else {
+          window.location.href = 'tDash.html';
+        }
+      });
+    }
+    // Fix: Add event listener for 'poo' button inside DOMContentLoaded
+    const pooBtn = document.getElementById('test2');
+    if (pooBtn) {
+      pooBtn.addEventListener('click', function() {
+        window.location.href = 'tDash.html';
       });
     }
   }
@@ -63,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // --- Student Login Logic ---
+
   if (window.location.pathname.endsWith('studentLogin.html')) {
     const submitBtn = document.querySelector('input[type="submit"]');
     if (submitBtn) {
@@ -82,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
-// Role selection logic for create account form
+
 document.addEventListener('DOMContentLoaded', function() {
   const studentRadio = document.getElementById('studentRadio');
   const teacherRadio = document.getElementById('teacherRadio');
@@ -133,17 +152,10 @@ if (opButton) {
   });
 }
 
-const poobtn = document.getElementById("test2");
-if (poobtn) {
-  poobtn.addEventListener("click", () => {
-    window.location.href = "stuDashboard.html";
-  });
-}
-
-const pooBtn = document.getElementById("test2");
+const pooBtn = document.getElementById('test2');
 if (pooBtn) {
-  pooBtn.addEventListener("click", () => {
-    window.location.href = "tDash.html";
+  pooBtn.addEventListener('click', () => {
+    window.location.href = 'tDash.html';
   });
 }
 

@@ -1,12 +1,10 @@
-/* Style login buttons row */
-
 
 
 .login-btn-row {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0px; /* right next to each other */
+  gap: 0px; 
   margin: 64px 0 0 0;
 }
 
@@ -34,7 +32,7 @@
   background-color: #b3d4f7;
   transform: scale(1.07);
 }
-/* Align and style the role selection radio buttons */
+
 .role-select-row {
   display: flex;
   align-items: center;
@@ -105,7 +103,7 @@ button {
   width: auto;
   height: auto;
   padding: 17px 80px;
-  display: block;               /* makes auto margins work */
+  display: block;             
   margin: 20px auto; 
   background-color: rgba(155, 196, 226, 0.5);
   color: #000052;
@@ -172,7 +170,9 @@ label {
   text-align: left;
 }
 
-
+input {
+  color: #0B0B45;       
+}
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -232,6 +232,7 @@ input::placeholder {
   font-size: 20px;
   display: inline-block; 
   margin: 10px; 
+  font-weight: bold;
 }
 
 #recBtn {
