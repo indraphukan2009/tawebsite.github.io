@@ -180,4 +180,18 @@ if (back) {
   });
 }
 
+const rambo = document.getElementById("tReq");
+if (rambo) {
+  rambo.addEventListener("click", () => {
+    window.location.href = "reqRequest";
+  });
+}
+
+const talog = document.getElementById("taLog");
+if (talog) {
+  talog.addEventListener("click", () => {
+    window.location.href = "talog.html";
+  });
+}
+
 
