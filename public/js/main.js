@@ -6,7 +6,7 @@ if (window.location.pathname.endsWith('teacherLogin.html')) {
     });
   }
 }
-
+                           
 document.addEventListener('DOMContentLoaded', function() {
 
   if (window.location.pathname.endsWith('teacherLogin.html')) {
