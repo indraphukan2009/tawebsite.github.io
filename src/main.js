@@ -1,4 +1,4 @@
-if (window.location.pathname.endsWith('teacherLogin2.html')) {
+if (window.location.pathname.endsWith('teacherLogin.html')) {
   const pooBtn = document.getElementById('test2');
   if (pooBtn) {
     pooBtn.addEventListener('click', function() {
@@ -9,7 +9,7 @@ if (window.location.pathname.endsWith('teacherLogin2.html')) {
 
 document.addEventListener('DOMContentLoaded', function() {
 
-  if (window.location.pathname.endsWith('teacherLogin2.html')) {
+  if (window.location.pathname.endsWith('teacherLogin.html')) {
     const submitBtn = document.querySelector('input[type="submit"]');
     if (submitBtn) {
       submitBtn.addEventListener('click', function(e) {
@@ -134,7 +134,7 @@ if (studentButton) {
 const teacherButton = document.getElementById("teacherBtn");
 if (teacherButton) {
   teacherButton.addEventListener("click", () => {
-    window.location.href = "teacherLogin2.html";
+    window.location.href = "teacherLogin.html";
   });
 }
 
