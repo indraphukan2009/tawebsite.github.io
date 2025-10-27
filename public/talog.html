@@ -1,14 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>TA Website</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TA Log</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .button-row {
+      margin-bottom: 25px;
+    }
+
+    button {
+      background-color: #54c0fb;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #4560a0;
+    }
+
+    table {
+      width: 90%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #75a3f4;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    td.expandable {
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 250px;
+    }
+
+    td.expanded {
+      white-space: normal;
+    }
+  </style>
 </head>
 <body>
+  <h1>TA Log</h1>
 
-  <p> Hellooooo this is where you can see ALL the TAs that have signed up. The ones that have specifically requested you are highlighted.</p>
+  <div class="button-row">
+    <button id="backBtn">⬅ Back</button>
+  </div>
 
+  <table id="taLogTable">
+    <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Grade</th>
+        <th>Description</th>
+        <th>Teacher Reqs</th>
+        <th>Assigned</th>
+        <th>Teacher</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Rows added by talog.js -->
+    </tbody>
+  </table>
 
-
-  </body>
-  </html>
+  <script type="module" src="./js/talog.js"></script>
+</body>
+</html>
