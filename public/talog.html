@@ -6,10 +6,12 @@
   <title>TA Log</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f7fa;
-      padding: 20px;
-      text-align: center;
+    margin: 0;
+    padding: 0;
+    font-family: Consolas, "Courier New", Courier, monospace;
+    background-color: #E5F3FD;
+    color: #0B0B45;
+    text-align: center;
     }
 
     h1 {
@@ -22,18 +24,26 @@
     }
 
     button {
-      background-color: #4CAF50;
-      color: white;
+      width: auto;
+      height: auto;
+      padding: 17px 80px;
+      display: block;             
+      margin: 20px auto; 
+      background-color: rgba(155, 196, 226, 0.5);
+      color: #000052;
+      font-size: 20px;
+      font-weight: bold;
       border: none;
-      padding: 10px 16px;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 14px;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-family: Consolas, "Courier New", Courier, monospace;
+
     }
 
+
     button:hover {
-      background-color: #4747ff;
+      transform: scale(1.05);
     }
 
     table {
@@ -45,14 +55,14 @@
     }
 
     th, td {
-      border: 2px solid #000000;
+      border: 2px solid #000052;
       padding: 12px;
       text-align: left;
     }
 
     th {
-      background-color: #65baff;
-      color: white;
+      background-color: rgba(155, 196, 226, 0.5);
+      color: #000052;
     }
 
     tr:nth-child(even) {
