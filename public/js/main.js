@@ -285,19 +285,38 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (!welcomeEl) return;
   try {
     const profile = await getUserProfile();
-    let name = 'User';
-    if (profile) {
-      // Prefer first + last name when available
-      const first = (profile.firstName || '').trim();
-      const last = (profile.lastName || '').trim();
-      if (first || last) {
-        name = (first + ' ' + last).trim();
-      } else if (profile.email) {
-        // fallback to the email local-part
-        name = profile.email.split('@')[0];
+    // Helper to capitalize a name
+    const capitalize = (s) => s ? (s.charAt(0).toUpperCase() + s.slice(1)) : s;
+
+    let name = '';
+    // 1) Prefer explicit first name from Firestore profile
+    if (profile && profile.firstName && profile.firstName.trim()) {
+      name = profile.firstName.trim();
+    }
+    // 2) If no first name, but last name exists (older teacher profiles), use last name
+    if (!name && profile && profile.lastName && profile.lastName.trim()) {
+      name = profile.lastName.trim();
+    }
+    // 3) Fall back to Firebase Auth user.displayName (take first token)
+    if (!name && auth && auth.currentUser) {
+      const u = auth.currentUser;
+      if (u.displayName && u.displayName.trim()) {
+        name = u.displayName.trim().split(/\s+/)[0];
+      } else if (u.email && u.email.includes('@')) {
+        // try to infer first name from the email local-part (e.g. "john.doe")
+        const local = u.email.split('@')[0];
+        const parts = local.split(/[._-]/).filter(Boolean);
+        name = parts[0] || local;
       }
     }
-    welcomeEl.textContent = `Welcome, ${name}`;
+
+    if (!name && profile && profile.email) {
+      // as a last-resort use profile email local-part
+      name = profile.email.split('@')[0];
+    }
+
+    if (!name) name = 'User';
+    welcomeEl.textContent = `Welcome, ${capitalize(name)}`;
   } catch (e) {
     console.error('Failed to load profile for welcome message', e);
   }
