@@ -10,15 +10,10 @@
   <p>Log in before you can submit a TA form or request a reccomendation</p>
   <img src="cvfalcon.jpg" alt="CV Falcon">
 
-
-
-
   <div class="login-btn-row">
     <button id="studentBtn">Student Log in</button>
     <button id="teacherBtn">Teacher Log in</button>
   </div>
-
-
 
   <div class="clipboard-form-container">
     <div class="createAccount">
@@ -30,24 +25,24 @@
             <input type="radio" id="studentRadio" name="role" value="student" checked>
             <span>Student</span>
           </label>
-          <label class="role-radio">
-            <input type="radio" id="teacherRadio" name="role" value="teacher">
-            <span>Teacher</span>
-          </label>
         </div>
+        <label class="role-radio">
+          <input type="radio" id="teacherRadio" name="role" value="teacher">
+          <span>Teacher</span>
+        </label>
         <br>
         <div id="teacherAccess" style="display:none;">
           <input type="text" id="accessCode" name="accessCode" autocomplete="off" placeholder="Access code"><br><br>
           <input type="text" id="TLastName" name="TLastName" autocomplete="off" placeholder="Last name"><br><br>
-          <input type="email" id="Tusername" name="Tusername" autocomplete="off" placeholder="GUSD Email"><br><br>
-          <input type="password" id="Tpassword" name="Tpassword" autocomplete="off" placeholder="Password"><br><br>
+          <input type="email" id="Tusername" name="Tusername" autocomplete="username" placeholder="GUSD Email"><br><br>
+          <input type="password" id="Tpassword" name="Tpassword" autocomplete="new-password" placeholder="Password"><br><br>
         </div>
         <div id="studentFields">
           <input type="text" id="fname" name="fname" autocomplete="off" placeholder="First name"><br>
           <input type="text" id="lname" name="lname" autocomplete="off" placeholder="Last name"><br><br>
-          <input type="password" id="Spassword" name="Spassword" autocomplete="off" placeholder="Password"><br><br>
-          <input type="email" id="email" name="email" autocomplete="off" placeholder="Student email"><br><br>
-          <input type="text" id="sid" name="sid" autocomplete="off" placeholder="Student ID (6-digit)"><br><br>
+          <input type="password" id="Spassword" name="Spassword" autocomplete="new-password" placeholder="Password"><br><br>
+          <input type="email" id="email" name="email" autocomplete="username" placeholder="Student email"><br><br>
+          <input type="text" id="sid" name="sid" inputmode="numeric" pattern="\\d{6}" placeholder="Student ID (6-digit)"><br><br>
           <input type="text" id="clsof" name="clsof" autocomplete="off" placeholder="Class of (Graduating Year)"><br><br>
         </div>
         <input type="submit" value="Create">
@@ -55,9 +50,7 @@
     </div>
   </div>
 
-   
-<script type="module" src="./js/firebase.js"></script>
-<script type="module" src="./js/main.js"></script>
+  <script type="module" src="./js/firebase.js"></script>
+  <script type="module" src="./js/main.js"></script>
 </body>
 </html>
-

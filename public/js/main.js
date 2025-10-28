@@ -6,10 +6,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  sendEmailVerification,
 } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
-import {
-  doc, setDoc, getDoc,
-} from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
 // ---------- helpers ----------
 const onPage = (name) =>
@@ -20,9 +19,14 @@ function requireRoleOn(pageFile, role, redirectTo) {
   onAuthStateChanged(auth, async (user) => {
     if (!user) return (window.location.href = redirectTo);
     try {
+      // Firestore-backed role check (Spark plan, no custom claims)
       const snap = await getDoc(doc(db, "users", user.uid));
       const data = snap.exists() ? snap.data() : null;
-      if (!data || data.role !== role) window.location.href = redirectTo;
+
+      if (role === "student" && data?.role === "student") return;
+      if (role === "teacher" && data?.role === "teacher") return;
+
+      window.location.href = redirectTo;
     } catch (e) {
       console.error("role check failed", e);
       window.location.href = redirectTo;
@@ -31,18 +35,15 @@ function requireRoleOn(pageFile, role, redirectTo) {
 }
 
 async function getUserProfile() {
-  return new Promise((resolve) => {
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) return resolve(null);
-      try {
-        const snap = await getDoc(doc(db, "users", user.uid));
-        resolve(snap.exists() ? snap.data() : null);
-      } catch (e) {
-        console.error("profile load failed", e);
-        resolve(null);
-      }
-    });
-  });
+  const user = auth.currentUser;
+  if (!user) return null;
+  try {
+    const snap = await getDoc(doc(db, "users", user.uid));
+    return snap.exists() ? snap.data() : null;
+  } catch (e) {
+    console.error("profile load failed", e);
+    return null;
+  }
 }
 
 async function showElementsForRole() {
@@ -69,7 +70,7 @@ document.addEventListener("click", async (e) => {
     }
   }
 
-  // Teacher test shortcut (poo button) -> always jump to tDash
+  // Teacher test shortcut (poo button) -> always jump to tDash (dev only)
   const poo = e.target.closest("#test2");
   if (poo && onPage("teacherLogin.html")) {
     e.preventDefault();
@@ -82,35 +83,44 @@ document.addEventListener("click", async (e) => {
 window.addEventListener("DOMContentLoaded", () => {
   // Home (index.html) nav buttons
   const studentButton = document.getElementById("studentBtn");
-  if (studentButton) studentButton.addEventListener("click", () => (window.location.href = "studentLogin.html"));
+  if (studentButton)
+    studentButton.addEventListener("click", () => (window.location.href = "studentLogin.html"));
 
   const teacherButton = document.getElementById("teacherBtn");
-  if (teacherButton) teacherButton.addEventListener("click", () => (window.location.href = "teacherLogin.html"));
+  if (teacherButton)
+    teacherButton.addEventListener("click", () => (window.location.href = "teacherLogin.html"));
 
   const homeButton = document.getElementById("homeBtn");
-  if (homeButton) homeButton.addEventListener("click", () => (window.location.href = "index.html"));
+  if (homeButton)
+    homeButton.addEventListener("click", () => (window.location.href = "index.html"));
 
   const formBtn = document.getElementById("formBtn");
-  if (formBtn) formBtn.addEventListener("click", () => (window.location.href = "submitForm.html"));
+  if (formBtn)
+    formBtn.addEventListener("click", () => (window.location.href = "submitForm.html"));
 
   const recButton = document.getElementById("recBtn");
-  if (recButton) recButton.addEventListener("click", () => (window.location.href = "requestRec.html"));
+  if (recButton)
+    recButton.addEventListener("click", () => (window.location.href = "requestRec.html"));
 
   const back = document.getElementById("dash");
-  if (back) back.addEventListener("click", () => (window.location.href = "stuDashboard.html"));
+  if (back)
+    back.addEventListener("click", () => (window.location.href = "stuDashboard.html"));
 
   const talog = document.getElementById("taLog");
-  if (talog) talog.addEventListener("click", () => (window.location.href = "talog.html"));
+  if (talog)
+    talog.addEventListener("click", () => (window.location.href = "talog.html"));
 
   // Fix typo: tReq should go to recRequest.html
   const tReq = document.getElementById("tReq");
-  if (tReq) tReq.addEventListener("click", () => (window.location.href = "recRequest.html"));
+  if (tReq)
+    tReq.addEventListener("click", () => (window.location.href = "recRequest.html"));
 
   const opButton = document.getElementById("teachBtn");
-  if (opButton) opButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.location.href = "stuDashboard.html";
-  });
+  if (opButton)
+    opButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "stuDashboard.html";
+    });
 
   // ----- Role radios + Create Account (index.html) -----
   const studentRadio = document.getElementById("studentRadio");
@@ -134,12 +144,13 @@ window.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       try {
         if (studentRadio?.checked) {
-          // Student signup
+          // --- Student signup ---
           const email = document.getElementById("email")?.value?.trim();
           const password = document.getElementById("Spassword")?.value;
           if (!email || !password) return alert("Student email and password required.");
 
           const cred = await createUserWithEmailAndPassword(auth, email, password);
+
           await setDoc(doc(db, "users", cred.user.uid), {
             uid: cred.user.uid,
             role: "student",
@@ -150,25 +161,36 @@ window.addEventListener("DOMContentLoaded", () => {
             classOf: document.getElementById("clsof")?.value?.trim() || "",
             createdAt: Date.now(),
           });
+
           alert("Student account created! You can now log in.");
         } else if (teacherRadio?.checked) {
-          // Teacher signup (requires access code)
-          const accessCode = (document.getElementById("accessCode")?.value || "").trim();
-          if (accessCode !== "245867") return alert("Invalid access code for teachers.");
-
+          // --- Teacher signup (Spark plan: email verification + domain rules) ---
           const email = document.getElementById("Tusername")?.value?.trim();
           const password = document.getElementById("Tpassword")?.value;
           if (!email || !password) return alert("Teacher email and password required.");
 
           const cred = await createUserWithEmailAndPassword(auth, email, password);
-          await setDoc(doc(db, "users", cred.user.uid), {
-            uid: cred.user.uid,
-            role: "teacher",
-            email,
-            lastName: document.getElementById("TLastName")?.value?.trim() || "",
-            createdAt: Date.now(),
-          });
-          alert("Teacher account created! You can now log in.");
+
+          // Create profile WITHOUT role (rules prevent client from setting teacher at create)
+          await setDoc(
+            doc(db, "users", cred.user.uid),
+            {
+              uid: cred.user.uid,
+              email,
+              lastName: document.getElementById("TLastName")?.value?.trim() || "",
+              createdAt: Date.now(),
+            },
+            { merge: true }
+          );
+
+          // Send verification email; teacher must verify before promotion
+          try {
+            await sendEmailVerification(cred.user);
+            alert("Verification email sent. Please verify your email, then log in on the Teacher Login page.");
+          } catch (ve) {
+            console.warn("sendEmailVerification failed", ve);
+            alert("Could not send verification email. You can still verify from your account later.");
+          }
         } else {
           alert("Please select Student or Teacher.");
         }
@@ -187,12 +209,15 @@ window.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         try {
           const email =
+            document.getElementById("Susername")?.value?.trim() ||
             document.getElementById("email")?.value?.trim() ||
-            document.getElementById("Susername")?.value?.trim() || "";
+            "";
           const password =
+            document.getElementById("Spassword")?.value ||
             document.getElementById("Password")?.value ||
-            document.getElementById("Spassword")?.value || "";
+            "";
           if (!email || !password) return alert("Email and password are required.");
+
           await signInWithEmailAndPassword(auth, email, password);
           window.location.href = "stuDashboard.html";
         } catch (err) {
@@ -210,17 +235,34 @@ window.addEventListener("DOMContentLoaded", () => {
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
         try {
-          const accessCode = (document.getElementById("accod")?.value ||
-                              document.getElementById("accessCode")?.value ||
-                              "").trim();
-          if (accessCode !== "245867") return alert("Access code is invalid.");
-
           const email = (document.getElementById("Tusername")?.value || "").trim();
-          const password = (document.getElementById("Password")?.value ||
-                            document.getElementById("Tpassword")?.value || "");
+          const password =
+            document.getElementById("Tpassword")?.value ||
+            document.getElementById("Password")?.value ||
+            "";
           if (!email || !password) return alert("Teacher email and password required.");
 
-          await signInWithEmailAndPassword(auth, email, password);
+          // Sign in first
+          const cred = await signInWithEmailAndPassword(auth, email, password);
+
+          // Refresh the user to get the latest emailVerified flag
+          await cred.user.reload();
+
+          if (!cred.user.emailVerified) {
+            alert("Please verify your email first (check your inbox), then try again.");
+            return;
+          }
+
+          // Try to elevate role to teacher (rules enforce @gusd.net + verified)
+          try {
+            await setDoc(doc(db, "users", cred.user.uid), { role: "teacher" }, { merge: true });
+          } catch (werr) {
+            // If rules reject, the message explains why.
+            console.warn("Role set rejected by rules:", werr);
+            alert("Could not set teacher role. Make sure your email is verified and ends with @gusd.net.");
+            return;
+          }
+
           window.location.href = "tDash.html";
         } catch (err) {
           console.error(err);
@@ -237,3 +279,18 @@ window.addEventListener("DOMContentLoaded", () => {
 // ---------- dashboard guards ----------
 requireRoleOn("stuDashboard.html", "student", "studentLogin.html");
 requireRoleOn("tDash.html", "teacher", "teacherLogin.html");
+
+// ---- universal submit safety net ----
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest('input[type="submit"], button[type="submit"]');
+  if (!btn) return;
+
+  const form = btn.form || btn.closest("form");
+  if (!form) {
+    console.warn("Submit clicked but no <form> found for:", btn);
+    return;
+  }
+
+  e.preventDefault();
+  form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+});

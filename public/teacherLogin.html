@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TA Website</title>
+  <title>TA Website – Teacher Login</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <h1>Teacher Login Page</h1>
-  <label for="Tusername">GUSD Email:</label><br>
-  <input type="text" id="Tusername" name="Tusername" ><br><br>
 
-  <label for="accod">Access Code:</label><br>
-  <input type="text" id="accod" name="accod" ><br><br>
+  <form>
+    <div class="form-row">
+      <input type="text" id="accessCode" name="accessCode" autocomplete="off" placeholder="Access Code"><br><br>
+    </div>
 
-  <label for="Password">Password</label><br>
-  <input type="text" id="Password" name="Password" ><br><br>
+    <div class="form-row">
+      <input type="text" id="Tusername" name="Tusername" autocomplete="off" placeholder="GUSD Email"><br><br>
+    </div>
 
+    <div class="form-row">
+      <input type="password" id="Tpassword" name="Tpassword" autocomplete="current-password" placeholder="Password"><br><br>
+    </div>
 
-  
+    <input type="submit" value="Log In">
+  </form>
 
-  <input type="submit" value="Submit">
-    <button id="homeBtn">Back to home</button>
-    <script src="main.js"></script>
+  <button id="homeBtn">Back to home</button>
+  <button id="test2">poo</button>
 
-    <button id="test2">poo</button>
-
-
-
-<script type="module" src="./js/firebase.js"></script>
-<script type="module" src="./js/main.js"></script>
-  </body>
-  </html>
+  <script type="module" src="./js/firebase.js"></script>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
