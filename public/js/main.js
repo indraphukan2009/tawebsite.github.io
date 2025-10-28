@@ -279,6 +279,29 @@ window.addEventListener("DOMContentLoaded", () => {
 // ---------- dashboard guards ----------
 requireRoleOn("stuDashboard.html", "student", "studentLogin.html");
 requireRoleOn("tDash.html", "teacher", "teacherLogin.html");
+// Populate a welcome message on dashboards with the signed-in user's name
+document.addEventListener('DOMContentLoaded', async () => {
+  const welcomeEl = document.getElementById('welcomeMsg');
+  if (!welcomeEl) return;
+  try {
+    const profile = await getUserProfile();
+    let name = 'User';
+    if (profile) {
+      // Prefer first + last name when available
+      const first = (profile.firstName || '').trim();
+      const last = (profile.lastName || '').trim();
+      if (first || last) {
+        name = (first + ' ' + last).trim();
+      } else if (profile.email) {
+        // fallback to the email local-part
+        name = profile.email.split('@')[0];
+      }
+    }
+    welcomeEl.textContent = `Welcome, ${name}`;
+  } catch (e) {
+    console.error('Failed to load profile for welcome message', e);
+  }
+});
 
 // ---- universal submit safety net ----
 document.addEventListener("click", (e) => {
