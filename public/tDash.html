@@ -3,15 +3,150 @@
 <head>
   <title>Teacher Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800&display=swap');
+
+    body {
+      margin: 0;
+      font-family: "Lexend", system-ui, sans-serif;
+      color: #000052;
+      background: linear-gradient(to bottom, #dff1ff 0%, #eaf7ff 50%, #fafdff 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      padding: 28px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .title {
+      text-align: center;
+      margin: 6px 0 24px;
+      font-size: clamp(2rem, 4.8vw, 3.6rem);
+      font-weight: 800;
+    }
+
+    #signOutBtn {
+      position: absolute;
+      right: 28px;
+      top: 22px;
+      background: none;
+      border: none;
+      padding: 0;
+      color: #000080;
+      font-weight: 600;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .grid3 {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr 1.6fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .tile {
+      border-radius: 18px;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.10);
+      min-height: 280px;
+      height: 100%;
+    }
+
+    .info-tile {
+      background: rgba(255,255,255,0.58);
+      border: 1px solid rgba(255,255,255,0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 28px 32px;
+    }
+
+    .info-tile h2 {
+      margin: 0 0 20px;
+      font-size: 1.6rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .line { margin-bottom: 18px; }
+    .label {
+      display: block;
+      font-size: .85rem;
+      color: #555;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .val {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #000052;
+    }
+
+    .btn-tile {
+      background: linear-gradient(to right, #a7c9f5, #7fb0f0);
+      color: #0B0B45;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      border: none;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: clamp(1.1rem, 2.1vw, 1.6rem);
+      transition: transform .18s ease, box-shadow .18s ease, background .25s ease;
+      width: 100%;
+      text-wrap: balance;
+    }
+
+    .btn-tile:hover {
+      transform: translateY(-2px) scale(1.02);
+      background: linear-gradient(to right, #9cc3f3, #6ca2ec);
+      box-shadow: 0 14px 34px rgba(0,0,0,.12);
+    }
+
+    @media (max-width: 980px) {
+      .grid3 {
+        grid-template-columns: 1fr;
+      }
+      .tile {
+        min-height: 220px;
+      }
+      #signOutBtn {
+        position: static;
+        display: block;
+        margin: 0 0 10px auto;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Teacher Dashboard</h1>
+  <div class="container">
+    <h1 class="title">Teacher Dashboard</h1>
+    <button id="signOutBtn" title="Sign out">Sign out</button>
 
-  <button id="taLog">TA Log</button>
-  <button id="tReq">Reccomendation Requests</button>
-  <button id="signOutBtn">Sign out</button>
+    <section class="grid3">
+      <aside class="tile info-tile">
+        <h2>Your Info</h2>
+        <div class="line">
+          <span class="label">Last Name</span>
+          <span id="tLast" class="val">—</span>
+        </div>
+        <div class="line">
+          <span class="label">Email</span>
+          <span id="tEmail" class="val">—</span>
+        </div>
+      </aside>
 
+      <button id="taLog" class="tile btn-tile">TA Log</button>
+      <button id="tReq" class="tile btn-tile">Recommendation Requests</button>
+    </section>
+  </div>
 
   <script type="module" src="./js/firebase.js"></script>
   <script type="module" src="./js/main.js"></script>

@@ -5,18 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TA Log</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800&display=swap');
+
     body {
-    margin: 0;
-    padding: 0;
-    font-family: Consolas, "Courier New", Courier, monospace;
-    background-color: #E5F3FD;
-    color: #0B0B45;
-    text-align: center;
+      margin: 0;
+      padding: 0;
+      font-family: "Lexend", system-ui, sans-serif;
+      background: linear-gradient(to bottom, #dff1ff 0%, #eaf7ff 50%, #fafdff 100%);
+      color: #0B0B45;
+      text-align: center;
+      min-height: 100vh;
     }
 
     h1 {
-      color: #333;
-      margin-bottom: 20px;
+      margin: 40px 0 24px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      color: #000052;
     }
 
     .button-row {
@@ -24,49 +29,52 @@
     }
 
     button {
-      width: auto;
-      height: auto;
-      padding: 17px 80px;
-      display: block;             
-      margin: 20px auto; 
-      background-color: rgba(155, 196, 226, 0.5);
-      color: #000052;
-      font-size: 20px;
-      font-weight: bold;
+      font-family: "Lexend", system-ui, sans-serif;
+      padding: 14px 60px;
+      background: linear-gradient(to right, #a7c9f5, #7fb0f0);
+      color: #0B0B45;
+      font-size: 1.1rem;
+      font-weight: 700;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      font-family: Consolas, "Courier New", Courier, monospace;
-
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     }
 
-
     button:hover {
-      transform: scale(1.05);
+      transform: translateY(-2px) scale(1.03);
+      background: linear-gradient(to right, #9cc3f3, #6ca2ec);
     }
 
     table {
       width: 90%;
-      margin: 0 auto;
+      margin: 0 auto 50px;
       border-collapse: collapse;
-      background: white;
-      box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+      border-radius: 16px;
+      overflow: hidden;
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
     }
 
     th, td {
-      border: 2px solid #000052;
-      padding: 12px;
+      padding: 14px 12px;
+      border-bottom: 2px solid rgba(0, 0, 82, 0.1);
       text-align: left;
+      font-size: 1rem;
     }
 
     th {
-      background-color: rgba(155, 196, 226, 0.5);
+      background: rgba(155, 196, 226, 0.4);
       color: #000052;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
     }
 
     tr:nth-child(even) {
-      background-color: #f2f2f2;
+      background-color: rgba(230, 240, 255, 0.3);
     }
 
     td.expandable {
@@ -75,10 +83,28 @@
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 250px;
+      transition: all 0.3s ease;
     }
 
     td.expanded {
       white-space: normal;
+    }
+
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: #4e84df;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      table {
+        width: 95%;
+      }
+
+      th, td {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
@@ -106,5 +132,11 @@
   </table>
 
   <script type="module" src="./js/talog.js"></script>
+
+  <script>
+    document.getElementById("backBtn")?.addEventListener("click", function() {
+      window.location.href = "tDash.html";
+    });
+  </script>
 </body>
 </html>

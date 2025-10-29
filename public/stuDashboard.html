@@ -3,17 +3,184 @@
 <head>
   <title>Student Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800&display=swap');
+
+    body {
+      margin: 0;
+      font-family: "Lexend", system-ui, sans-serif;
+      color: #000052;
+      background: linear-gradient(to bottom, #dff1ff 0%, #eaf7ff 50%, #fafdff 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      padding: 28px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .title {
+      text-align: center;
+      margin: 6px 0 24px;
+      font-size: clamp(2rem, 4.8vw, 3.6rem);
+      font-weight: 800;
+    }
+
+    #signOutBtn {
+      position: absolute;
+      right: 28px;
+      top: 22px;
+      background: none;
+      border: none;
+      padding: 0;
+      color: #000080;
+      font-weight: 600;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* 3-column grid */
+    .grid3 {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr 1.6fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .tile {
+      border-radius: 18px;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.10);
+      min-height: 280px;
+      height: 100%;
+    }
+
+    /* left info card */
+    .info-tile {
+      background: rgba(255,255,255,0.58);
+      border: 1px solid rgba(255,255,255,0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 28px 32px;
+    }
+
+    .info-tile h2 {
+      margin: 0 0 20px;
+      font-size: 1.6rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .line { margin-bottom: 18px; }
+    .label {
+      display: block;
+      font-size: .85rem;
+      color: #555;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .val {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #000052;
+    }
+
+    /* right buttons */
+    .btn-tile {
+      background: linear-gradient(to right, #a7c9f5, #7fb0f0);
+      color: #0B0B45;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      border: none;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: clamp(1.1rem, 2.1vw, 1.6rem);
+      transition: transform .18s ease, box-shadow .18s ease, background .25s ease;
+      width: 100%;
+      text-wrap: balance;
+    }
+
+    .btn-tile:hover {
+      transform: translateY(-2px) scale(1.02);
+      background: linear-gradient(to right, #9cc3f3, #6ca2ec);
+      box-shadow: 0 14px 34px rgba(0,0,0,.12);
+    }
+
+    @media (max-width: 980px) {
+      .grid3 {
+        grid-template-columns: 1fr;
+      }
+      .tile {
+        min-height: 220px;
+      }
+      #signOutBtn {
+        position: static;
+        display: block;
+        margin: 0 0 10px auto;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Student Dashboard</h1>
-  <button id="signOutBtn">Sign out</button>
-  <button id="recBtn">Ask for Reccomendation</button>
-  <button id="formBtn">TA Form</button>
+  <div class="container">
+    <h1 class="title">Student Dashboard</h1>
+    <button id="signOutBtn" title="Sign out">Sign out</button>
 
+    <section class="grid3">
+      <aside class="tile info-tile">
+        <h2>Your Info</h2>
+        <div class="line">
+          <span class="label">First Name</span>
+          <span id="sFirst" class="val">—</span>
+        </div>
+        <div class="line">
+          <span class="label">Last Name</span>
+          <span id="sLast" class="val">—</span>
+        </div>
+        <div class="line">
+          <span class="label">Graduating Year</span>
+          <span id="sYear" class="val">—</span>
+        </div>
+        <div class="line">
+          <span class="label">Student Email</span>
+          <span id="sEmail" class="val">—</span>
+        </div>
+        <div class="line">
+          <span class="label">Student ID</span>
+          <span id="sID" class="val">—</span>
+        </div>
+      </aside>
 
+      <button id="recBtn" class="tile btn-tile">Ask for<br>Recommendation</button>
+      <button id="taFormBtn" class="tile btn-tile">TA Form</button>
+    </section>
+  </div>
 
   <script type="module" src="./js/firebase.js"></script>
   <script type="module" src="./js/main.js"></script>
+
+  <script type="module">
+    import { auth, db } from "./js/firebase.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) return;
+      const snap = await getDoc(doc(db, "users", user.uid));
+      const data = snap.exists() ? snap.data() : {};
+      document.getElementById("sFirst").textContent = data.firstName || "—";
+      document.getElementById("sLast").textContent  = data.lastName || "—";
+      document.getElementById("sYear").textContent  = data.gradYear || "—";
+      document.getElementById("sEmail").textContent = data.email || user.email || "—";
+      document.getElementById("sID").textContent    = data.studentID || "—";
+    });
+  </script>
 </body>
 </html>

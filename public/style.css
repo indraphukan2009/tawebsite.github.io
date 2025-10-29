@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
 
 .login-btn-row {
   display: flex;
@@ -76,7 +76,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Consolas, "Courier New", Courier, monospace;
+  font-family: 'Lexend', sans-serif;
   background-color: #E5F3FD;
   color: #0B0B45;
   text-align: center;
@@ -113,7 +113,7 @@ img {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  font-family: Consolas, "Courier New", Courier, monospace;
+  font-family: 'Lexend', sans-serif;
 
 }
 
@@ -128,7 +128,6 @@ button:hover {
 .clipboard-form-container {
   position: relative;
   max-width: 1400px;
-  margin: 10px auto 0 auto;
   min-height: 1500px;
   display: flex;
   align-items: center;
@@ -215,7 +214,7 @@ input[type="submit"] {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  font-family: Consolas, "Courier New", Courier, monospace;
+  font-family: 'Lexend', sans-serif;
 }
 
 
@@ -226,7 +225,7 @@ input[type="submit"]:hover {
 input::placeholder {
   color: #888;          
   opacity: 1;
-  font-family: Consolas, "Courier New", Courier, monospace;          
+  font-family:'Lexend', sans-serif;       
 }
 #teacherBtn, #studentBtn {
   width: auto;
@@ -258,6 +257,9 @@ input::placeholder {
 ::placeholder {
   color: #888;          
   opacity: 1;
-  font-family: Consolas, "Courier New", Courier, monospace;  
+  font-family:'Lexend', sans-serif;
 }
 
+.welcome {
+  font-size: 35px;
+}

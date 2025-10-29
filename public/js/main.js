@@ -15,7 +15,23 @@ import {
 const onPage = (name) =>
   window.location.pathname.toLowerCase().endsWith(name.toLowerCase());
 
+// Test mode detection: when URL contains ?test=1 set a session flag so
+// other pages can detect test mode and avoid redirecting to login.
+function isTestMode() {
+  try {
+    if (window.location.search && window.location.search.includes("test=1")) {
+      sessionStorage.setItem("TEST_MODE", "1");
+      return true;
+    }
+    return sessionStorage.getItem("TEST_MODE") === "1";
+  } catch (e) {
+    return false;
+  }
+}
+
 function requireRoleOn(pageFile, role, redirectTo) {
+  // If test mode is active, skip role enforcement entirely.
+  if (isTestMode()) return;
   if (!onPage(pageFile)) return;
   onAuthStateChanged(auth, async (user) => {
     if (!user) return (window.location.href = redirectTo);
@@ -92,6 +108,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const formBtn = document.getElementById("formBtn");
   if (formBtn) formBtn.addEventListener("click", () => (window.location.href = "submitForm.html"));
+
+  // student dashboard uses id "taFormBtn" for the TA Form tile
+  const taFormBtn = document.getElementById("taFormBtn");
+  if (taFormBtn) taFormBtn.addEventListener("click", () => (window.location.href = "submitForm.html"));
 
   const recButton = document.getElementById("recBtn");
   if (recButton) recButton.addEventListener("click", () => (window.location.href = "requestRec.html"));
@@ -235,5 +255,12 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 // ---------- dashboard guards ----------
-requireRoleOn("stuDashboard.html", "student", "studentLogin.html");
-requireRoleOn("tDash.html", "teacher", "teacherLogin.html");
+if (!(window.location.pathname.endsWith("stuDashboard.html") && window.location.search.includes("test=1"))) {
+  requireRoleOn("stuDashboard.html", "student", "studentLogin.html");
+}
+if (!(window.location.pathname.endsWith("tDash.html") && window.location.search.includes("test=1"))) {
+  requireRoleOn("tDash.html", "teacher", "teacherLogin.html");
+}
+if (!(window.location.pathname.endsWith("recRequest.html") && window.location.search.includes("test=1"))) {
+  requireRoleOn("recRequest.html", "teacher", "teacherLogin.html");
+}

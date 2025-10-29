@@ -1,56 +1,377 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TA Website</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800&display=swap');
+
+    :root{
+      --ink:#000052;
+      --ink-2:#0B0B45;
+      --pane:#ffffff;
+      --pane-br:18px;
+      --brand-1:#a7c9f5;
+      --brand-2:#7fb0f0;
+      --stroke:#e4e9f3;
+    }
+
+    /* page */
+    body{
+      margin:0;
+      font-family:"Lexend",system-ui,sans-serif;
+      color:var(--ink-2);
+      background:linear-gradient(to bottom,#dff1ff 0%,#eaf7ff 50%,#fafdff 100%);
+      min-height:100vh;
+    }
+    .wrap{max-width:1200px;margin:0 auto;padding:32px 20px 56px}
+
+    header{text-align:center;margin-bottom:22px}
+    header h1{
+      margin:4px 0 8px;
+      font-weight:800;
+      font-size:clamp(1.8rem,4.2vw,2.6rem);
+      color:var(--ink);
+    }
+    header p{
+      margin:0;
+      color:#1b2a66;
+      opacity:.9;
+      font-size:.95rem;
+    }
+
+    /* two cards */
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      align-items:stretch;
+    }
+    .card{
+      background:rgba(255,255,255,.9);
+      border:1px solid rgba(155,196,226,.35);
+      border-radius:var(--pane-br);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      box-shadow:0 12px 28px rgba(0,0,0,.08);
+      padding:24px 22px;
+      display:flex;
+      flex-direction:column;
+    }
+    .card h2{
+      margin:4px 0 6px;
+      font-weight:800;
+      color:var(--ink);
+      font-size:clamp(1.25rem,2.2vw,1.6rem);
+    }
+    .inline-sub{margin-left:10px;color:#47507a;font-weight:600;font-size:.95rem;opacity:.9}
+
+    /* title row with pills on the side */
+    .title-row{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    /* segmented pills */
+    .seg{
+      display:flex; gap:10px;
+    }
+    .seg button{
+      appearance:none;border:none;padding:8px 14px;border-radius:12px;
+      font-weight:800;color:#445;background:#f3f7ff;cursor:pointer;
+      transition:filter .18s, transform .18s;
+    }
+    .seg button.active{
+      background:linear-gradient(to right,var(--brand-1),var(--brand-2));
+      color:var(--ink-2);
+    }
+    .seg button:hover{filter:brightness(.98);transform:translateY(-1px)}
+
+    /* forms */
+    form{margin-top:8px;display:flex;flex-direction:column;gap:14px;width:100%;max-width:560px}
+    .row{display:flex;flex-direction:column;gap:6px}
+    .label-line{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    label{font-size:.9rem;font-weight:700;color:#596089;margin:0}
+    .hint{font-size:.85rem;color:#6b739b;white-space:nowrap}
+
+    input[type="text"],input[type="email"],input[type="password"]{
+      width:100%;box-sizing:border-box;padding:12px 12px;border:2px solid var(--stroke);
+      border-radius:10px;font-size:1rem;outline:none;background:#fff;
+      transition:border-color .2s, box-shadow .2s;
+    }
+    input:focus{border-color:#8fb8f3;box-shadow:0 0 0 3px rgba(143,184,243,.25)}
+
+    .btn{
+      width:100%;padding:14px 16px;border:none;border-radius:12px;
+      font-weight:800;font-size:1.05rem;cursor:pointer;color:var(--ink-2);
+      background:linear-gradient(to right,var(--brand-1),var(--brand-2));
+      box-shadow:0 10px 20px rgba(0,0,0,.08);
+      transition:transform .18s, box-shadow .18s, filter .2s;
+    }
+    .btn:hover{transform:translateY(-2px) scale(1.01);box-shadow:0 16px 28px rgba(0,0,0,.12)}
+
+    .hidden{display:none}
+
+    /* --- NEW: image/text split section --- */
+    /* --- FULL-WIDTH IMAGE/TEXT SPLIT (no box) --- */
+.split-outer{
+  width:100%;
+  margin:56px 0 24px;
+}
+.split-inner{
+  max-width:1400px;          /* wider than the main wrap for a bolder feel */
+  margin:0 auto;
+  padding:0 20px;
+}
+.split-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); /* image a bit larger */
+  gap:40px;
+  align-items:center;
+}
+.split-img img{
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:14px;
+  box-shadow:0 10px 22px rgba(0,0,0,.08);
+}
+.split-text h2{
+  margin:0 0 12px;
+  font-weight:800;
+  color:var(--ink);
+  font-size:clamp(1.25rem,2.2vw,1.6rem);
+}
+.split-text p{
+  margin:0;
+  color:#2d3b73;
+  font-size:1.1rem;
+  line-height:1.75;
+}
+
+@media (max-width:960px){
+  .split-grid{ grid-template-columns:1fr; gap:18px; }
+}
+
+  </style>
 </head>
 <body>
-  <h1>TA Website</h1>
-  <p>Welcome to Crescenta Valley Highschool's TA website!!!</p>
-  <p>Log in before you can submit a TA form or request a reccomendation</p>
-  <img src="cvfalcon.jpg" alt="CV Falcon">
+  <div class="wrap">
+    <header>
+      <h1>TA Website</h1>
+      <p>Welcome to Crescenta Valley High School’s TA website. Log in or create an account to continue.</p>
+    </header>
 
-  <div class="login-btn-row">
-    <button id="studentBtn">Student Log in</button>
-    <button id="teacherBtn">Teacher Log in</button>
-  </div>
+    <section class="grid">
+      <!-- LEFT: CREATE ACCOUNT (title with pills on the side) -->
+      <div class="card">
+        <div class="title-row">
+          <h2 style="margin:0">Create an Account</h2>
+          <!-- create pills mirror the login pills -->
+          <div class="seg" id="createSeg" aria-label="Create as">
+            <button type="button" data-mode="student" class="active">Student</button>
+            <button type="button" data-mode="teacher">Teacher</button>
+          </div>
+        </div>
 
-  <div class="clipboard-form-container">
-    <div class="createAccount">
-      <h2 style="font-size: 2em;">Create an Account!</h2>
-      <form id="accountForm" autocomplete="off">
-        <div class="role-select-row">
-          <span class="role-label">Are you a teacher or a student?</span>
-          <label class="role-radio">
-            <input type="radio" id="studentRadio" name="role" value="student" checked>
-            <span>Student</span>
-          </label>
+        <form id="accountForm" autocomplete="off">
+          <!-- Teacher-only fields -->
+          <div id="teacherAccess" class="hidden">
+            <div class="row">
+              <div class="label-line"><label for="accessCode">Access Code</label></div>
+              <input type="text" id="accessCode" placeholder="Required" />
+            </div>
+            <div class="row">
+              <div class="label-line"><label for="TLastName">Last name</label></div>
+              <input type="text" id="TLastName" placeholder="Last name" />
+            </div>
+            <div class="row">
+              <div class="label-line">
+                <label for="Tusername">GUSD Email</label><span class="hint">@gusd.net</span>
+              </div>
+              <input type="email" id="Tusername" placeholder="you@gusd.net" />
+            </div>
+            <div class="row">
+              <div class="label-line"><label for="Tpassword">Password</label></div>
+              <input type="password" id="Tpassword" placeholder="Choose a password" />
+            </div>
+          </div>
+
+          <!-- Student-only fields -->
+          <div id="studentFields">
+            <div class="row">
+              <div class="label-line"><label for="fname">First name</label></div>
+              <input type="text" id="fname" placeholder="First name" />
+            </div>
+            <div class="row">
+              <div class="label-line"><label for="lname">Last name</label></div>
+              <input type="text" id="lname" placeholder="Last name" />
+            </div>
+            <div class="row">
+              <div class="label-line"><label for="Spassword">Password</label></div>
+              <input type="password" id="Spassword" placeholder="Choose a password" />
+            </div>
+            <div class="row">
+              <div class="label-line">
+                <label for="email">Student email</label><span class="hint">@stu.gusd.net</span>
+              </div>
+              <input type="email" id="email" placeholder="you@stu.gusd.net" />
+            </div>
+            <div class="row">
+              <div class="label-line"><label for="sid">Student ID (6-digit)</label></div>
+              <input type="text" id="sid" placeholder="Student ID" />
+            </div>
+            <div class="row">
+              <div class="label-line"><label for="clsof">Class of (graduating year)</label></div>
+              <input type="text" id="clsof" placeholder="Year" />
+            </div>
+          </div>
+
+          <div style="margin-top:6px">
+            <button type="submit" class="btn">Create</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- RIGHT: LOGIN -->
+      <div class="card">
+        <div class="title-row">
+          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+            <h2 style="margin:0">Welcome back!</h2>
+            <span class="inline-sub">Sign in to your account</span>
+          </div>
+          <div class="seg" id="loginSeg" aria-label="Login as">
+            <button type="button" data-mode="student" class="active">Student</button>
+            <button type="button" data-mode="teacher">Teacher</button>
+          </div>
         </div>
-        <label class="role-radio">
-          <input type="radio" id="teacherRadio" name="role" value="teacher">
-          <span>Teacher</span>
-        </label>
-        <br>
-        <div id="teacherAccess" style="display:none;">
-          <input type="text" id="accessCode" name="accessCode" autocomplete="off" placeholder="Access code"><br><br>
-          <input type="text" id="TLastName" name="TLastName" autocomplete="off" placeholder="Last name"><br><br>
-          <input type="email" id="Tusername" name="Tusername" autocomplete="username" placeholder="GUSD Email"><br><br>
-          <input type="password" id="Tpassword" name="Tpassword" autocomplete="new-password" placeholder="Password"><br><br>
-        </div>
-        <div id="studentFields">
-          <input type="text" id="fname" name="fname" autocomplete="off" placeholder="First name"><br>
-          <input type="text" id="lname" name="lname" autocomplete="off" placeholder="Last name"><br><br>
-          <input type="password" id="Spassword" name="Spassword" autocomplete="new-password" placeholder="Password"><br><br>
-          <input type="email" id="email" name="email" autocomplete="username" placeholder="Student email"><br><br>
-          <input type="text" id="sid" name="sid" inputmode="numeric" pattern="\\d{6}" placeholder="Student ID (6-digit)"><br><br>
-          <input type="text" id="clsof" name="clsof" autocomplete="off" placeholder="Class of (Graduating Year)"><br><br>
-        </div>
-        <input type="submit" value="Create">
-      </form>
+
+        <form id="loginForm" autocomplete="off">
+          <div class="row hidden" id="loginAccessRow">
+            <div class="label-line"><label for="loginAccess">Access Code</label></div>
+            <input type="text" id="loginAccess" placeholder="Required for teachers" />
+          </div>
+
+          <div class="row">
+            <div class="label-line">
+              <label for="loginEmail">Email</label>
+              <span class="hint" id="loginEmailHint">Must be @stu.gusd.net</span>
+            </div>
+            <input type="email" id="loginEmail" placeholder="you@stu.gusd.net" />
+          </div>
+
+          <div class="row">
+            <div class="label-line"><label for="loginPassword">Password</label></div>
+            <input type="password" id="loginPassword" placeholder="Enter your password" />
+          </div>
+
+          <div style="margin-top:6px">
+            <button type="submit" class="btn">Log In</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- NEW: image/text split section -->
+    <section class="split-outer">
+  <div class="split-inner">
+    <div class="split-grid">
+      <div class="split-img">
+        <img src="cvfalcon.jpg" alt="CV Falcon">
+      </div>
+      <div class="split-text">
+        <h2>About Our Program</h2>
+        <p>This is the paragraph.</p>
+      </div>
     </div>
   </div>
+</section>
 
+  </div>
+
+  <!-- keep your modules -->
   <script type="module" src="./js/firebase.js"></script>
   <script type="module" src="./js/main.js"></script>
+
+  <!-- page-only UI wiring: segmented toggles + visibility -->
+  <script type="module">
+    import { auth } from "./js/firebase.js";
+    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+
+    /* ----- LOGIN PILLS ----- */
+    const segLogin = document.getElementById("loginSeg");
+    const loginAccessRow = document.getElementById("loginAccessRow");
+    const loginEmail = document.getElementById("loginEmail");
+    const loginEmailHint = document.getElementById("loginEmailHint");
+    let loginMode = "student";
+
+    segLogin.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-mode]");
+      if (!btn) return;
+      segLogin.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      loginMode = btn.dataset.mode;
+
+      if (loginMode === "teacher") {
+        loginAccessRow.classList.remove("hidden");
+        loginEmail.placeholder = "you@gusd.net";
+        loginEmailHint.textContent = "Must be @gusd.net";
+      } else {
+        loginAccessRow.classList.add("hidden");
+        loginEmail.placeholder = "you@stu.gusd.net";
+        loginEmailHint.textContent = "Must be @stu.gusd.net";
+      }
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = loginEmail.value.trim();
+      const password = document.getElementById("loginPassword").value;
+
+      if (loginMode === "teacher") {
+        const access = document.getElementById("loginAccess").value.trim();
+        if (access !== "245867") return alert("Access code is invalid.");
+        if (!/@gusd\.net$/i.test(email)) return alert("Teacher email must end with @gusd.net");
+      } else {
+        if (!/@stu\.gusd\.net$/i.test(email)) return alert("Student email must end with @stu.gusd.net");
+      }
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = (loginMode === "teacher") ? "tDash.html" : "stuDashboard.html";
+      } catch (err) {
+        console.error(err);
+        alert(err?.message || "Sign-in failed.");
+      }
+    });
+
+    /* ----- CREATE PILLS (mirror) ----- */
+    const segCreate = document.getElementById("createSeg");
+    const teacherAccess = document.getElementById("teacherAccess");
+    const studentFields = document.getElementById("studentFields");
+    let createMode = "student";
+
+    function applyCreateVis() {
+      const isTeacher = (createMode === "teacher");
+      teacherAccess.classList.toggle("hidden", !isTeacher);
+      studentFields.classList.toggle("hidden", isTeacher);
+    }
+
+    segCreate.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-mode]");
+      if (!btn) return;
+      segCreate.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      createMode = btn.dataset.mode;
+      applyCreateVis();
+    });
+
+    applyCreateVis();
+  </script>
 </body>
 </html>

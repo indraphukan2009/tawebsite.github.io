@@ -1,34 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TA Website – Teacher Login</title>
+  <title>Teacher Login</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap');
+    body{
+      margin:0;height:100vh;display:flex;justify-content:center;align-items:center;
+      font-family:"Lexend",sans-serif;background:linear-gradient(to bottom,#dff1ff 0%,#eaf7ff 50%,#fafdff 100%);background-attachment:fixed;overflow:hidden;
+    }
+    body::before{
+      content:"";position:absolute;width:150%;height:150%;top:-25%;left:-25%;
+      background:radial-gradient(circle at 40% 30%,rgba(255,255,255,.5),transparent 60%),
+                 radial-gradient(circle at 80% 70%,rgba(255,255,255,.4),transparent 60%);
+      filter:blur(80px);z-index:0;
+    }
+    .login-box{
+      position:relative;z-index:1;background:rgba(255,255,255,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+      border:1px solid rgba(255,255,255,.4);border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,.08);
+      width:440px;padding:50px 55px;text-align:left;color:#000052;
+    }
+    .login-box h2{ text-align:center;font-size:1.9em;margin:.1em 0 .3em;font-weight:700;}
+    .login-box p{ text-align:center;margin:0 0 1.6em;opacity:.8;}
+    label{ display:block;font-weight:600;margin:10px 0 8px;}
+    input[type="email"],input[type="password"],input[type="text"]{
+      width:100%;padding:14px 16px;margin-bottom:18px;border:2px solid #ddd;border-radius:10px;font-size:1.05em;background:rgba(255,255,255,.9);outline:none;transition:.3s;
+    }
+    input:focus{ border-color:#6ea6e4;box-shadow:0 0 8px rgba(110,166,228,.4);}
+    input[type="submit"]{
+      width:100%;background:linear-gradient(to right,#a7c9f5,#7fb0f0);color:#000052;border:none;padding:16px 0;border-radius:10px;
+      font-size:1.1em;font-weight:600;cursor:pointer;transition:transform .2s,background .3s;text-align:center;
+    }
+    input[type="submit"]:hover{ background:linear-gradient(to right,#9cc3f3,#6ca2ec);transform:scale(1.03);}
+    .footer-links{ text-align:center;margin-top:1.3em;}
+    .footer-links a{ color:#000080;font-weight:600;text-decoration:none;font-size:.95em;}
+    .footer-links a:hover{ text-decoration:underline;}
+  </style>
 </head>
 <body>
+  <div class="login-box">
+    <h2>Welcome back!</h2>
+    <p>Sign in with your teacher account</p>
 
-  <h1>Teacher Login Page</h1>
+    <form id="teacherLoginForm">
+      <label for="accod">Access Code</label>
+      <input type="text" id="accod" name="accessCode" placeholder="Required" required>
 
-  <form>
-    <div class="form-row">
-      <input type="text" id="accessCode" name="accessCode" autocomplete="off" placeholder="Access Code"><br><br>
+      <label for="Tusername">Email</label>
+      <input type="email" id="Tusername" name="Tusername" placeholder="you@gusd.net"
+             pattern="^[a-zA-Z0-9._%+-]+@gusd\.net$" title="Must be a @gusd.net email" required>
+
+      <label for="Tpassword">Password</label>
+      <input type="password" id="Tpassword" name="Tpassword" placeholder="Enter your password" required>
+
+      <input type="submit" value="Log In">
+    </form>
+
+    <div class="footer-links">
+  <a href="index.html">Back to Home</a>
+  <br>
+  <a href="tDash.html?test=1"><button type="button" style="width:100%;margin-top:10px;">test</button></a>
     </div>
-
-    <div class="form-row">
-      <input type="text" id="Tusername" name="Tusername" autocomplete="off" placeholder="GUSD Email"><br><br>
-    </div>
-
-    <div class="form-row">
-      <input type="password" id="Tpassword" name="Tpassword" autocomplete="current-password" placeholder="Password"><br><br>
-    </div>
-
-    <input type="submit" value="Log In">
-  </form>
-
-  <button id="homeBtn">Back to home</button>
-  <button id="test2">poo</button>
-
-  <button id="taLog">TA Log</button>
-  <button id="tReq">Reccomendation Requests</button>
+  </div>
 
   <script type="module" src="./js/firebase.js"></script>
   <script type="module" src="./js/main.js"></script>
