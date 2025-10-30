@@ -1,28 +1,208 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>TA Website</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TA Website – Recommendation Requests</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800&display=swap');
+
+    :root {
+      --ink: #000052;
+      --ink-2: #0B0B45;
+      --brand-1: #a7c9f5;
+      --brand-2: #7fb0f0;
+      --stroke: #e4e9f3;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Lexend", system-ui, sans-serif;
+      color: var(--ink-2);
+      background: linear-gradient(to bottom, #dff1ff 0%, #eaf7ff 50%, #fafdff 100%);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 70px;
+    }
+
+    /* Back button */
+    .back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: rgba(155,196,226,0.55);
+      color: var(--ink-2);
+      font-weight: 800;
+      border-radius: 14px;
+      padding: 16px 22px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0 10px;
+      font-weight: 800;
+      color: var(--ink);
+      font-size: clamp(2rem, 5vw, 3rem);
+    }
+
+    .sub {
+      text-align: center;
+      margin: 0 0 24px;
+      color: #415089;
+      opacity: .9;
+      font-weight: 600;
+      font-size: 1.15rem;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.95);
+      border: 1px solid rgba(155,196,226,0.35);
+      border-radius: 22px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+      padding: 40px 36px;
+    }
+
+    .count {
+      font-weight: 800;
+      color: var(--ink);
+      margin: 2px 0 30px;
+      font-size: 1.6rem;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      border: 2px solid var(--stroke);
+      border-radius: 18px;
+      padding: 26px 22px;
+      background: #fff;
+    }
+
+    .who {
+      font-weight: 800;
+      color: var(--ink);
+      font-size: 1.25rem;
+    }
+
+    .msg {
+      display: block;
+      margin-top: 10px;
+      color: #2d3b73;
+      opacity: .95;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(to right, var(--brand-1), var(--brand-2));
+      color: var(--ink-2);
+      font-weight: 800;
+      cursor: pointer;
+      padding: 16px 24px;
+      font-size: 1.05rem;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+      white-space: nowrap;
+      transition: transform .18s, box-shadow .18s, filter .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 16px 28px rgba(0,0,0,.12);
+      filter: brightness(0.98);
+    }
+
+    .btn:disabled {
+      opacity: 0.85;
+      cursor: default;
+    }
+
+    @media (max-width: 760px) {
+      .row { grid-template-columns: 1fr; gap: 16px; }
+      .btn { width: 100%; }
+      .who { font-size: 1.15rem; }
+      .msg { font-size: 1rem; }
+    }
+  </style>
 </head>
 <body>
-  <h1></h1>
+  <div class="wrap">
+    <button id="dash" class="back">← Back</button>
 
-    <button id="dash">Back</button>
+    <h1>Recommendation Requests</h1>
+    
+    <div class="card">
+      <div class="count">Requests (4)</div>
 
-<label for="teachop">Choose a teacher:</label>
+      <ul class="list">
+        <li class="row">
+          <div>
+            <span class="who">Emma Park</span>
+            <span class="msg">— “Can you mention to Ms. Montecillo how hard-working I am?”</span>
+          </div>
+          <button class="btn" disabled>Start Writing Recommendation</button>
+        </li>
 
+        <li class="row">
+          <div>
+            <span class="who">Rambo Stink</span>
+            <span class="msg">— “Please tell Mr. Smith about my growth this semester and my good qualities.”</span>
+          </div>
+          <button class="btn" disabled>Start Writing Recommendation</button>
+        </li>
 
+        <li class="row">
+          <div>
+            <span class="who">Liam Chen</span>
+            <span class="msg">— “Could you highlight my robotics leadership and reliability?”</span>
+          </div>
+          <button class="btn" disabled>Start Writing Recommendation</button>
+        </li>
 
+        <li class="row">
+          <div>
+            <span class="who">Ava Martinez</span>
+            <span class="msg">— “Please emphasize my improvement in AP Physics 2 and class participation.”</span>
+          </div>
+          <button class="btn" disabled>Start Writing Recommendation</button>
+        </li>
+      </ul>
+    </div>
+  </div>
 
- <label for="rec">What would you like to ask?:</label><br>
-  <input type="text" id="rec" name="rec" ><br><br>
-  
+  <!-- Keep your Firebase + main.js scripts -->
+  <script src="main.js"></script>
+  <script type="module" src="./js/firebase.js"></script>
+  <script type="module" src="./js/main.js"></script>
 
-    <input type="submit" value="Submit">
-
-    <script src="main.js"></script>
-
-<script type="module" src="./js/firebase.js"></script>
-<script type="module" src="./js/main.js"></script>
-  </body>
-  </html>
+  <!-- Optional: Override back button to return to teacher dashboard -->
+  <script>
+    document.getElementById("dash")?.addEventListener("click", e => {
+      e.preventDefault();
+      window.location.href = "tDash.html";
+    });
+  </script>
+</body>
+</html>

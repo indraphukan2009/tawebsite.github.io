@@ -154,5 +154,21 @@
 
   <script type="module" src="./js/firebase.js"></script>
   <script type="module" src="./js/main.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const btn = document.getElementById('tReq');
+    if (!btn) {
+      console.warn('tReq not found on tDash');
+      return;
+    }
+    btn.setAttribute('type', 'button'); // avoid any accidental form-submit behavior
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      console.log('tReq clicked → navigating to recRequest.html');
+      window.location.assign('recRequest.html'); // use assign to avoid SPAs caching weirdness
+    });
+  });
+</script>
+
 </body>
 </html>

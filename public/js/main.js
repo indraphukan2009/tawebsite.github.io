@@ -325,4 +325,5 @@ window.seedTestTeacher = async function seedTestTeacher() {
     // Sign out to avoid hijacking your session
     try { await signOut(auth); } catch {}
   }
+
 };
