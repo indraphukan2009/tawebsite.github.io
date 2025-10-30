@@ -1,96 +1,223 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>TA Website</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>TA Website – TA Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800&display=swap');
+
+    :root {
+      --ink:#000052;
+      --ink-2:#0B0B45;
+      --pane:#ffffff;
+      --pane-br:24px;
+      --brand-1:#a7c9f5;
+      --brand-2:#7fb0f0;
+      --stroke:#cfd8ec;
+    }
+
+    body {
+      margin:0;
+      font-family:"Lexend",system-ui,sans-serif;
+      color:var(--ink-2);
+      background:linear-gradient(to bottom,#dff1ff 0%,#eaf7ff 50%,#fafdff 100%);
+      min-height:100vh;
+    }
+
+    .wrap {
+      max-width:1200px;
+      margin:0 auto;
+      padding:60px 28px 100px;
+    }
+
+    #dash {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-weight:800;
+      color:var(--ink-2);
+      background:rgba(155,196,226,.5);
+      border:none;
+      padding:16px 26px;
+      border-radius:16px;
+      font-size:1.3rem;
+      cursor:pointer;
+      box-shadow:0 10px 20px rgba(0,0,0,.06);
+      transition:transform .16s, filter .2s;
+    }
+    #dash:hover {
+      transform:translateY(-3px);
+      filter:brightness(.98);
+    }
+
+    h1.page-title {
+      text-align:center;
+      font-weight:900;
+      color:var(--ink);
+      font-size:clamp(2.6rem,4vw,3.2rem);
+      margin:30px 0 40px;
+    }
+
+    .card {
+      background:rgba(255,255,255,.97);
+      border:1px solid rgba(155,196,226,.35);
+      border-radius:var(--pane-br);
+      backdrop-filter:blur(10px);
+      box-shadow:0 18px 40px rgba(0,0,0,.08);
+      padding:60px 70px;
+    }
+
+    .section-title {
+      font-size:1.8rem;
+      color:var(--ink);
+      font-weight:800;
+      margin:10px 0 15px;
+    }
+
+    .muted {
+      font-size:1.2rem;
+      line-height:1.7;
+      color:#434b84;
+      margin-bottom:28px;
+    }
+
+    form {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:30px;
+      margin-top:28px;
+    }
+
+    label {
+      font-size:1.3rem;
+      font-weight:800;
+      color:#323c7a;
+      margin-bottom:8px;
+    }
+
+    input[type="text"], input[list] {
+      width:100%;
+      box-sizing:border-box;
+      padding:22px 24px;
+      border:2px solid var(--stroke);
+      border-radius:18px;
+      font-size:1.2rem;
+      outline:none;
+      background:#fff;
+      box-shadow:0 3px 10px rgba(0,0,0,.04);
+      transition:border-color .2s, box-shadow .2s, transform .15s;
+    }
+    input[type="text"]:focus, input[list]:focus {
+      border-color:#8fb8f3;
+      box-shadow:0 0 0 4px rgba(143,184,243,.25);
+      transform:scale(1.01);
+    }
+
+    .helper {
+      font-size:1.05rem;
+      color:#4f568c;
+    }
+
+    .btn {
+      width:100%;
+      padding:24px 28px;
+      border:none;
+      border-radius:18px;
+      font-weight:900;
+      font-size:1.4rem;
+      cursor:pointer;
+      color:var(--ink-2);
+      background:linear-gradient(to right,var(--brand-1),var(--brand-2));
+      box-shadow:0 14px 30px rgba(0,0,0,.1);
+      transition:transform .2s, box-shadow .2s, filter .2s;
+    }
+    .btn:hover {
+      transform:translateY(-3px) scale(1.02);
+      box-shadow:0 20px 40px rgba(0,0,0,.15);
+    }
+
+    .grid-3 {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+    }
+
+    @media (max-width:880px) {
+      .grid-3 { grid-template-columns:1fr; }
+      .card { padding:40px 30px; }
+      input[type="text"], input[list] { font-size:1.1rem; }
+    }
+  </style>
 </head>
+
 <body>
-  <h1></h1>
+  <div class="wrap">
+    <button id="dash">← Back</button>
+    <h1 class="page-title">Teacher Aide Agreement Form</h1>
 
-<button id="dash">Back</button>
+    <div class="card">
+      <h2 class="section-title">Course Description</h2>
+      <p class="muted">
+        This class does not have a specified curriculum. A student's grade in this class is dependent upon attendance,
+        helpfulness, reliability, efficiency, dependability, and the quality of work. An above average grade is not
+        automatic; it must be earned.
+      </p>
 
- <p> Course Description: </p>
- <p> This class does not have a specified curriculum. A student's grade in this class is dependent upon attendance,
-  helpfulness, reliability, efficiency, dependability, and the quality of work. An above average grade is not
-  automatic, it must be earned.
- </p>
+      <h2 class="section-title">Behavior Expectations</h2>
+      <p class="muted">
+        Students are expected to behave in a mature, professional manner during their assigned time as a Teacher or Office Aide.
+        They must follow through promptly with assigned duties, be honest and trustworthy, and refrain from discussing privileged
+        information. Unauthorized phone use, excessive talking, or loitering are not allowed. Dress codes must be followed at all times.
+      </p>
 
- <p> Behavior Expectations: </p>
- 
-  or a violation of school policies will be referred to the administration for disciplinary action and be indefinitely 
-  removed from the Teacher of Office Aide program.
- </p>
- <p> 
+      <form id="taForm">
+        <div class="row">
+          <label for="teacher1">Choose your top 3 teachers:</label>
+          <div class="grid-3">
+            <input list="teachoplist" id="teacher1" name="teacher1" placeholder="Teacher #1" />
+            <input list="teachoplist" id="teacher2" name="teacher2" placeholder="Teacher #2" />
+            <input list="teachoplist" id="teacher3" name="teacher3" placeholder="Teacher #3" />
+          </div>
+          <p class="helper">I/We understand that any abuse of privilege of being in this class will lead to removal from the program.</p>
+        </div>
 
- </p>
+        <div class="row">
+          <label for="name">Student Name</label>
+          <input type="text" id="name" name="name" placeholder="First and last name" />
+        </div>
 
- <p> It is expected that students will behave in a mature, professional manner during the time they are working
-  as a Teacher or Office Aide. Students are expected to follow through promptly and efficiently with assigned duties, 
-be honest and trustworthy, and refrain from passing on or discussing privileged information. Studenst will not
-wander the halls, goof-off or sit in the quad during the period assigned as an Aide. Use of any 
-unauthorized electronic devices, excessive talking, or sleeping is not allowed and school dress codes are expected to be 
-followed. Students are not permitted to eat in the classrooms or offices during class time. </p>
+        <div class="row">
+          <label for="SSignature">Student Signature</label>
+          <input type="text" id="SSignature" name="SSignature" placeholder="Type your full name" />
+        </div>
 
-  <p> </p>
+        <div class="row">
+          <label for="PName">Parent Name</label>
+          <input type="text" id="PName" name="PName" placeholder="Parent/guardian full name" />
+        </div>
 
-<label for="teachop">Choose your top 3 teachers:</label>
+        <div class="row">
+          <label for="PSignature">Parent Signature</label>
+          <input type="text" id="PSignature" name="PSignature" placeholder="Type parent/guardian full name" />
+        </div>
 
-<input list="teachoplist" id="myTextBoxWithOptions" name="myChoice">
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+  </div>
 
+  <script src="main.js"></script>
+  <script type="module" src="./js/firebase.js"></script>
+  <script type="module" src="./js/main.js"></script>
 
-<datalist id="teachoplist">
-  <option value="Song">
-  <option value="Tuason">
-  <option value="Poole">
-  <option value="Platt">
-  <option value="Petrosian">
-</datalist>
-
-<input list="teachoplist" id="myTextBoxWithOptions" name="myChoice">
-
-
-<datalist id="teachoplist">
-  <option value="Song">
-  <option value="Tuason">
-  <option value="Poole">
-  <option value="Platt">
-  <option value="Petrosian">
-</datalist>
-
-<input list="teachoplist" id="myTextBoxWithOptions" name="myChoice">
-
-
-<datalist id="teachoplist">
-  <option value="Song">
-  <option value="Tuason">
-  <option value="Poole">
-  <option value="Platt">
-  <option value="Petrosian">
-</datalist>
-
-<p> I/We understand that any abuse of privilege of being in this class will lead to the student 
-  being removed from the class
-</p>
-
- <label for="name">Student Name:</label><br>
-  <input type="text" id="name" name="name" ><br><br>
-
-<label for="SSignature">Student Signature:</label><br>
-  <input type="text" id="SSignature" name="SSignature" ><br><br>
-
-  <label for="PName">Parent Name :</label><br>
-  <input type="text" id="PName" name="PName" ><br><br>
-
-    <label for="PSignature">Parent Signature :</label><br>
-  <input type="text" id="PSignature" name="PSignature" ><br><br>
-
-  <input type="submit" value="Submit">
-
-
-
-    <script src="main.js"></script>
-  
-<script type="module" src="./js/firebase.js"></script>
-<script type="module" src="./js/main.js"></script>
-  </body>
-  </html>
+  <datalist id="teachoplist">
+    <option value="Song">
+    <option value="Tuason">
+    <option value="Poole">
+    <option value="Platt">
+    <option value="Petrosian">
+  </datalist>
+</body>
+</html>

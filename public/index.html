@@ -117,47 +117,22 @@
 
     .hidden{display:none}
 
-    /* --- NEW: image/text split section --- */
     /* --- FULL-WIDTH IMAGE/TEXT SPLIT (no box) --- */
-.split-outer{
-  width:100%;
-  margin:56px 0 24px;
-}
-.split-inner{
-  max-width:1400px;          /* wider than the main wrap for a bolder feel */
-  margin:0 auto;
-  padding:0 20px;
-}
-.split-grid{
-  display:grid;
-  grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); /* image a bit larger */
-  gap:40px;
-  align-items:center;
-}
-.split-img img{
-  width:100%;
-  height:auto;
-  display:block;
-  border-radius:14px;
-  box-shadow:0 10px 22px rgba(0,0,0,.08);
-}
-.split-text h2{
-  margin:0 0 12px;
-  font-weight:800;
-  color:var(--ink);
-  font-size:clamp(1.25rem,2.2vw,1.6rem);
-}
-.split-text p{
-  margin:0;
-  color:#2d3b73;
-  font-size:1.1rem;
-  line-height:1.75;
-}
+    .split-outer{width:100%;margin:56px 0 24px}
+    .split-inner{max-width:1400px;margin:0 auto;padding:0 20px}
+    .split-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
+      gap:40px;align-items:center;
+    }
+    .split-img img{
+      width:100%;height:auto;display:block;border-radius:14px;
+      box-shadow:0 10px 22px rgba(0,0,0,.08);
+    }
+    .split-text h2{margin:0 0 12px;font-weight:800;color:var(--ink);font-size:clamp(1.25rem,2.2vw,1.6rem)}
+    .split-text p{margin:0;color:#2d3b73;font-size:1.1rem;line-height:1.75}
 
-@media (max-width:960px){
-  .split-grid{ grid-template-columns:1fr; gap:18px; }
-}
-
+    @media (max-width:960px){ .split-grid{ grid-template-columns:1fr; gap:18px; } }
   </style>
 </head>
 <body>
@@ -172,7 +147,6 @@
       <div class="card">
         <div class="title-row">
           <h2 style="margin:0">Create an Account</h2>
-          <!-- create pills mirror the login pills -->
           <div class="seg" id="createSeg" aria-label="Create as">
             <button type="button" data-mode="student" class="active">Student</button>
             <button type="button" data-mode="teacher">Teacher</button>
@@ -185,6 +159,11 @@
             <div class="row">
               <div class="label-line"><label for="accessCode">Access Code</label></div>
               <input type="text" id="accessCode" placeholder="Required" />
+            </div>
+            <!-- NEW: Teacher First Name -->
+            <div class="row">
+              <div class="label-line"><label for="TFirstName">First name</label></div>
+              <input type="text" id="TFirstName" placeholder="First name" />
             </div>
             <div class="row">
               <div class="label-line"><label for="TLastName">Last name</label></div>
@@ -277,20 +256,20 @@
       </div>
     </section>
 
-    <!-- NEW: image/text split section -->
+    <!-- FULL-WIDTH image/text split -->
     <section class="split-outer">
-  <div class="split-inner">
-    <div class="split-grid">
-      <div class="split-img">
-        <img src="cvfalcon.jpg" alt="CV Falcon">
+      <div class="split-inner">
+        <div class="split-grid">
+          <div class="split-img">
+            <img src="cvfalcon.jpg" alt="CV Falcon">
+          </div>
+          <div class="split-text">
+            <h2>About Our Program</h2>
+            <p>This is the paragraph.</p>
+          </div>
+        </div>
       </div>
-      <div class="split-text">
-        <h2>About Our Program</h2>
-        <p>This is the paragraph.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
   </div>
 

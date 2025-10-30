@@ -8,15 +8,14 @@ import {
   signOut,
 } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 import {
-  doc, setDoc, getDoc,
+  doc, setDoc, getDoc, serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
 // ---------- helpers ----------
 const onPage = (name) =>
   window.location.pathname.toLowerCase().endsWith(name.toLowerCase());
 
-// Test mode detection: when URL contains ?test=1 set a session flag so
-// other pages can detect test mode and avoid redirecting to login.
+// Test mode detection
 function isTestMode() {
   try {
     if (window.location.search && window.location.search.includes("test=1")) {
@@ -30,7 +29,6 @@ function isTestMode() {
 }
 
 function requireRoleOn(pageFile, role, redirectTo) {
-  // If test mode is active, skip role enforcement entirely.
   if (isTestMode()) return;
   if (!onPage(pageFile)) return;
   onAuthStateChanged(auth, async (user) => {
@@ -168,16 +166,19 @@ window.addEventListener("DOMContentLoaded", () => {
             lastName: document.getElementById("lname")?.value?.trim() || "",
             sid: document.getElementById("sid")?.value?.trim() || "",
             classOf: document.getElementById("clsof")?.value?.trim() || "",
-            createdAt: Date.now(),
+            createdAt: serverTimestamp(),
           });
           alert("Student account created! You can now log in.");
-        } else if (teacherRadio?.checked) {
+
+        } else {
           // Teacher signup (requires access code)
           const accessCode = (document.getElementById("accessCode")?.value || "").trim();
           if (accessCode !== "245867") return alert("Invalid access code for teachers.");
 
           const email = document.getElementById("Tusername")?.value?.trim();
           const password = document.getElementById("Tpassword")?.value;
+          const firstName = document.getElementById("TFirstName")?.value?.trim() || ""; // NEW
+          const lastName  = document.getElementById("TLastName")?.value?.trim() || "";
           if (!email || !password) return alert("Teacher email and password required.");
 
           const cred = await createUserWithEmailAndPassword(auth, email, password);
@@ -185,12 +186,11 @@ window.addEventListener("DOMContentLoaded", () => {
             uid: cred.user.uid,
             role: "teacher",
             email,
-            lastName: document.getElementById("TLastName")?.value?.trim() || "",
-            createdAt: Date.now(),
+            firstName,            // NEW
+            lastName,
+            createdAt: serverTimestamp(),
           });
           alert("Teacher account created! You can now log in.");
-        } else {
-          alert("Please select Student or Teacher.");
         }
       } catch (err) {
         console.error(err);
@@ -250,6 +250,23 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // ----- Populate Teacher Dashboard info (tDash.html) -----
+  if (onPage("tDash.html")) {
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) return;
+      try {
+        const snap = await getDoc(doc(db, "users", user.uid));
+        const data = snap.exists() ? snap.data() : {};
+        const $ = (id) => document.getElementById(id);
+        if ($("tFirst")) $("tFirst").textContent = data.firstName || "—";
+        if ($("tLast"))  $("tLast").textContent  = data.lastName  || "—";
+        if ($("tEmail")) $("tEmail").textContent = data.email     || user.email || "—";
+      } catch (e) {
+        console.error("Failed to load teacher info", e);
+      }
+    });
+  }
+
   // show/hide role-specific UI (optional)
   showElementsForRole();
 });
@@ -264,3 +281,48 @@ if (!(window.location.pathname.endsWith("tDash.html") && window.location.search.
 if (!(window.location.pathname.endsWith("recRequest.html") && window.location.search.includes("test=1"))) {
   requireRoleOn("recRequest.html", "teacher", "teacherLogin.html");
 }
+
+// ---------- OPTIONAL: seed a real test teacher (run in console: seedTestTeacher()) ----------
+window.seedTestTeacher = async function seedTestTeacher() {
+  const email = "testteacher@gusd.net";
+  const pass  = "Test!1234";
+  const first = "Test";
+  const last  = "Teacher";
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+    await setDoc(doc(db, "users", cred.user.uid), {
+      uid: cred.user.uid,
+      role: "teacher",
+      email,
+      firstName: first,
+      lastName: last,
+      createdAt: serverTimestamp(),
+    });
+    console.log("✅ Seeded test teacher:", email);
+  } catch (e) {
+    if (e?.code === "auth/email-already-in-use") {
+      console.log("ℹ️ Test teacher exists. Verifying profile…");
+      // Sign in to ensure profile exists
+      const cred = await signInWithEmailAndPassword(auth, email, pass);
+      const ref = doc(db, "users", cred.user.uid);
+      const snap = await getDoc(ref);
+      if (!snap.exists()) {
+        await setDoc(ref, {
+          uid: cred.user.uid,
+          role: "teacher",
+          email,
+          firstName: first,
+          lastName: last,
+          createdAt: serverTimestamp(),
+        });
+      }
+      console.log("✅ Test teacher verified");
+    } else {
+      console.error("❌ Seed error:", e);
+      alert(e?.message || "Seed failed");
+    }
+  } finally {
+    // Sign out to avoid hijacking your session
+    try { await signOut(auth); } catch {}
+  }
+};

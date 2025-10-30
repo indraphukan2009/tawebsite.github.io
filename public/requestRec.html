@@ -1,129 +1,193 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>TA Website</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>TA Website – Ask a Teacher</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800&display=swap');
+
+    :root {
+      --ink:#000052;
+      --ink-2:#0B0B45;
+      --pane:#ffffff;
+      --pane-br:24px;
+      --brand-1:#a7c9f5;
+      --brand-2:#7fb0f0;
+      --stroke:#cfd8ec;
+    }
+
+    body {
+      margin:0;
+      font-family:"Lexend",system-ui,sans-serif;
+      color:var(--ink-2);
+      background:linear-gradient(to bottom,#dff1ff 0%,#eaf7ff 50%,#fafdff 100%);
+      min-height:100vh;
+    }
+
+    .wrap {
+      max-width:1100px;
+      margin:0 auto;
+      padding:60px 28px 100px;
+    }
+
+    #dash {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      font-size:1.4rem;
+      color:var(--ink-2);
+      background:rgba(155,196,226,.5);
+      border:none;
+      padding:18px 32px;
+      border-radius:16px;
+      cursor:pointer;
+      box-shadow:0 10px 20px rgba(0,0,0,.06);
+      transition:transform .16s, filter .2s;
+    }
+    #dash:hover {
+      transform:translateY(-3px);
+      filter:brightness(.98);
+    }
+
+    h1.page-title {
+      text-align:center;
+      font-weight:900;
+      color:var(--ink);
+      font-size:clamp(2.8rem,4vw,3.3rem);
+      margin:36px 0 28px;
+    }
+
+    .card {
+      background:rgba(255,255,255,.97);
+      border:1px solid rgba(155,196,226,.35);
+      border-radius:var(--pane-br);
+      backdrop-filter:blur(10px);
+      box-shadow:0 18px 40px rgba(0,0,0,.08);
+      padding:70px 90px;
+    }
+
+    .card h2 {
+      font-size:2rem;
+      font-weight:800;
+      color:var(--ink);
+      margin:0 0 10px;
+    }
+
+    .card p.sub {
+      font-size:1.3rem;
+      color:#4f568c;
+      margin:0 0 28px;
+    }
+
+    form {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:36px;
+    }
+
+    label {
+      font-size:1.4rem;
+      font-weight:800;
+      color:#333b7a;
+      margin-bottom:12px;
+    }
+
+    input[list], textarea {
+      width:100%;
+      box-sizing:border-box;
+      padding:24px 26px;
+      border:2px solid var(--stroke);
+      border-radius:20px;
+      font-size:1.3rem;
+      font-family:"Lexend", sans-serif;
+      outline:none;
+      background:#fff;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+      transition:border-color .2s, box-shadow .2s, transform .15s;
+    }
+
+    input[list]:focus, textarea:focus {
+      border-color:#8fb8f3;
+      box-shadow:0 0 0 5px rgba(143,184,243,.25);
+      transform:scale(1.01);
+    }
+
+    textarea {
+      min-height:200px;
+      resize:vertical;
+      line-height:1.7;
+    }
+
+    .btn {
+      width:100%;
+      padding:26px 30px;
+      border:none;
+      border-radius:20px;
+      font-weight:900;
+      font-size:1.5rem;
+      cursor:pointer;
+      color:var(--ink-2);
+      background:linear-gradient(to right,var(--brand-1),var(--brand-2));
+      box-shadow:0 14px 30px rgba(0,0,0,.1);
+      transition:transform .2s, box-shadow .2s, filter .2s;
+    }
+
+    .btn:hover {
+      transform:translateY(-3px) scale(1.02);
+      box-shadow:0 20px 40px rgba(0,0,0,.15);
+    }
+
+    @media (max-width:800px) {
+      .card { padding:40px 30px; }
+      h1.page-title { font-size:2.3rem; }
+      label { font-size:1.2rem; }
+      input[list], textarea { font-size:1.1rem; }
+      .btn { font-size:1.25rem; }
+    }
+  </style>
 </head>
+
 <body>
-  <h1></h1>
+  <div class="wrap">
+    <button id="dash">← Back</button>
+    <h1 class="page-title">Ask a Teacher</h1>
 
-    <button id="dash">Back</button>
+    <div class="card">
+      <h2>Send a Quick Request</h2>
+      <p class="sub">Choose a teacher and write your question below. We'll pass it along for you.</p>
 
-<label for="teachop">Choose a teacher:</label>
+      <form id="recForm">
+        <div class="row">
+          <label for="teachop">Choose a teacher</label>
+          <input list="teachoplist" id="myTextBoxWithOptions" name="myChoice" placeholder="Start typing a name..." />
+          <datalist id="teachoplist">
+            <option value="Allen">
+            <option value="Alva">
+            <option value="Basu">
+            <option value="Poole">
+            <option value="Chang">
+            <option value="Smith">
+            <option value="Torres">
+            <option value="Petrosian">
+            <option value="Song">
+          </datalist>
+        </div>
 
-<input list="teachoplist" id="myTextBoxWithOptions" name="myChoice">
+        <div class="row">
+          <label for="rec">What would you like to ask?</label>
+          <textarea id="rec" name="rec" placeholder="Type your question or message here..."></textarea>
+        </div>
 
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+  </div>
 
-<datalist id="teachoplist">
-  <option value="Allen">
-  <option value="Alva">
-  <option value="Basu">
-  <option value="Beers-Dannerth">
-  <option value="Besoli">
-  <option value="Briscoe">
-  <option value="Mackey">
-  <option value="Call">
-  <option value="Chang">
-  <option value="Beerman">
-  <option value="Cheney">
-  <option value="Choi">
-  <option value="Chung">
-  <option value="Cooney">
-  <option value="Davis">
-  <option value="De Souza">
-  <option value="Deitch">
-  <option value="DeKruyf">
-  <option value="Der Mesropian">
-  <option value="Dominguez">
-  <option value="Engen">
-  <option value="Evans">
-  <option value="Fishback">
-  <option value="Flower">
-  <option value="Forbes">
-  <option value="Franck">
-  <option value="Freemon">
-  <option value="Furutani">
-  <option value="Ghazarian">
-  <option value="Gin">
-  <option value="Gossard">
-  <option value="Greenway">
-  <option value="Gregorian">
-  <option value="Guzman">
-  <option value="Hall">
-  <option value="Harris">
-  <option value="Hart">
-  <option value="Hernandez">
-  <option value="Huang">
-  <option value="Johnson">
-  <option value="Karibyan">
-  <option value="Katzer">
-  <option value="Josh Kim">
-  <option value="Jen Lee">
-  <option value="Peter Kim">
-  <option value="Leon">
-  <option value="Levering">
-  <option value="Lim">
-  <option value="Lyons">
-  <option value="Maurice Mack">
-  <option value="Shannon Mack">
-  <option value="Malone">
-  <option value="Manukyan">
-  <option value="Marshall">
-  <option value="Mathias">
-  <option value="Mcguire">
-  <option value="Mendoza">
-  <option value="Merlo">
-  <option value="Messal">
-  <option value="Milano">
-  <option value="Moro">
-  <option value="Mucic">
-  <option value="Nakayama">
-  <option value="Napiwocki">
-  <option value="Jacqueline Nelson">
-  <option value="John Nelson">
-  <option value="Ngai">
-  <option value="Orchid">
-  <option value="Pehar">
-  <option value="Petrosian">
-  <option value="Platt">
-  <option value="Poole">
-  <option value="Rinck">
-  <option value="Ross">
-  <option value="Montaro">
-  <option value="Sakonju">
-  <option value="Sano">
-  <option value="Saw">
-  <option value="Schick">
-  <option value="Schilling">
-  <option value="Sdao">
-  <option value="Sellards">
-  <option value="Sheridan">
-  <option value="Smiley">
-  <option value="Smith">
-  <option value="Song">
-  <option value="Taix">
-  <option value="Tanahan">
-  <option value="Torres">
-  <option value="Tuason">
-  <option value="Rosa Vasquez">
-  <option value="Sierra Vasquez">
-  <option value="Workman">
-  <option value="Zaborowski">
-  <option value="Zargarian">
-  
-    
-</datalist>
-
-
- <label for="rec">What would you like to ask?:</label><br>
-  <input type="text" id="rec" name="rec" ><br><br>
-  
-  
-    <input type="submit" value="Submit">
-
-    <script src="main.js"></script>
-
-<script type="module" src="./js/firebase.js"></script>
-<script type="module" src="./js/main.js"></script>
-  </body>
-  </html>
+  <script src="main.js"></script>
+  <script type="module" src="./js/firebase.js"></script>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

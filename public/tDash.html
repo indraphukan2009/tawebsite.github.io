@@ -111,12 +111,8 @@
     }
 
     @media (max-width: 980px) {
-      .grid3 {
-        grid-template-columns: 1fr;
-      }
-      .tile {
-        min-height: 220px;
-      }
+      .grid3 { grid-template-columns: 1fr; }
+      .tile { min-height: 220px; }
       #signOutBtn {
         position: static;
         display: block;
@@ -133,10 +129,18 @@
     <section class="grid3">
       <aside class="tile info-tile">
         <h2>Your Info</h2>
+
+        <!-- NEW: First Name row -->
+        <div class="line">
+          <span class="label">First Name</span>
+          <span id="tFirst" class="val">—</span>
+        </div>
+
         <div class="line">
           <span class="label">Last Name</span>
           <span id="tLast" class="val">—</span>
         </div>
+
         <div class="line">
           <span class="label">Email</span>
           <span id="tEmail" class="val">—</span>
